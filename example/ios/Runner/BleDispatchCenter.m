@@ -10,6 +10,8 @@
 #import "BleConst.h"
 #import "DXBleBean.h"
 #import "BleUtilBase.h"
+#import "RABleUtilEnhance.h"
+#import "RABleUtilSimple.h"
 
 @interface BleDispatchCenter()
 
@@ -92,10 +94,10 @@
 - (void)initBleutil:(DXBleBean *)bean {
     if ([bean.style isEqualToString: BLE_CL]) {
         _bleUtil = [[CLBleUtil alloc] init];
-    }else if ([bean.style isEqualToString: BLE_RUIAO_New]) {
-        
-    }else if ([bean.style isEqualToString: BLE_RUIAO_Old]) {
-        
+    }else if ([bean.style isEqualToString: BLE_RUIAO_Enhance]) {
+        _bleUtil = [[RABleUtilEnhance alloc] init];
+    }else if ([bean.style isEqualToString: BLE_RUIAO_Simple]) {
+        _bleUtil = [[RABleUtilSimple alloc] initWithSearchUtil:_bleSearchUtil];
     }
     _bleUtil.searchUtil = _bleSearchUtil;
     __weak typeof(self) weakself = self;

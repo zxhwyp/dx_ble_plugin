@@ -55,14 +55,14 @@ class ChuangLi extends DefaultBle {
   }
 }
 
-//瑞奥蓝牙(新)
-class RuiAoNew extends DefaultBle {
+//瑞奥蓝牙(增强版)
+class RuiAoEnhance extends DefaultBle {
   @override
-  String get style => 'RuiAuNew';
+  String get style => 'RuiAuEnhance';
 
-  RuiAoNew();
-  factory RuiAoNew.fromDefault(DefaultBle ble) {
-    RuiAoNew entity = RuiAoNew();
+  RuiAoEnhance();
+  factory RuiAoEnhance.fromDefault(DefaultBle ble) {
+    RuiAoEnhance entity = RuiAoEnhance();
     entity.name = ble.name;
     entity.rssi = ble.rssi;
     entity.uuid = ble.uuid;
@@ -71,14 +71,14 @@ class RuiAoNew extends DefaultBle {
   }
 }
 
-//瑞奥蓝牙(旧)
-class RuiAoOld extends DefaultBle {
+//瑞奥蓝牙(简单版)
+class RuiAoSimple extends DefaultBle {
   @override
-  String get style => 'RuiAuOld';
+  String get style => 'RuiAuSimple';
 
-  RuiAoOld();
-  factory RuiAoOld.fromDefault(DefaultBle ble) {
-    RuiAoOld entity = RuiAoOld();
+  RuiAoSimple();
+  factory RuiAoSimple.fromDefault(DefaultBle ble) {
+    RuiAoSimple entity = RuiAoSimple();
     entity.name = ble.name;
     entity.rssi = ble.rssi;
     entity.uuid = ble.uuid;

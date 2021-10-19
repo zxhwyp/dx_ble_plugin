@@ -15,6 +15,9 @@
 		5F377015271813DB00944B92 /* DXBleBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F377014271813DB00944B92 /* DXBleBean.m */; };
 		5F5737E8271D0D700020B20A /* BleSearchUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5737E7271D0D700020B20A /* BleSearchUtil.m */; };
 		5F5737EB271D498B0020B20A /* BleUtilBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5737EA271D498B0020B20A /* BleUtilBase.m */; };
+		5FF76895271EB8CD00C58A9F /* RABleUtilEnhance.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF76894271EB8CD00C58A9F /* RABleUtilEnhance.m */; };
+		5FF76898271EB8E300C58A9F /* RABleUtilSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF76897271EB8E300C58A9F /* RABleUtilSimple.m */; };
+		5FF7689A271EC63500C58A9F /* RayonicsSimpleKeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF76899271EC63500C58A9F /* RayonicsSimpleKeySDK.framework */; };
 		64EB0E389CDE21BB22925C55 /* libPods-Runner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA93288DCBC2DDD37E6CA6C4 /* libPods-Runner.a */; };
 		978B8F6F1D3862AE00F588F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */; };
 		97C146F31CF9000F007C117D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C146F21CF9000F007C117D /* main.m */; };
@@ -52,6 +55,11 @@
 		5F5737E7271D0D700020B20A /* BleSearchUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleSearchUtil.m; sourceTree = "<group>"; };
 		5F5737E9271D498B0020B20A /* BleUtilBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleUtilBase.h; sourceTree = "<group>"; };
 		5F5737EA271D498B0020B20A /* BleUtilBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleUtilBase.m; sourceTree = "<group>"; };
+		5FF76893271EB8CD00C58A9F /* RABleUtilEnhance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RABleUtilEnhance.h; sourceTree = "<group>"; };
+		5FF76894271EB8CD00C58A9F /* RABleUtilEnhance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RABleUtilEnhance.m; sourceTree = "<group>"; };
+		5FF76896271EB8E300C58A9F /* RABleUtilSimple.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RABleUtilSimple.h; sourceTree = "<group>"; };
+		5FF76897271EB8E300C58A9F /* RABleUtilSimple.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RABleUtilSimple.m; sourceTree = "<group>"; };
+		5FF76899271EC63500C58A9F /* RayonicsSimpleKeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RayonicsSimpleKeySDK.framework; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		7AFFD8ED1D35381100E5BB4D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -75,6 +83,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F3770112716B46000944B92 /* HNTT01CLProtocol.framework in Frameworks */,
+				5FF7689A271EC63500C58A9F /* RayonicsSimpleKeySDK.framework in Frameworks */,
 				64EB0E389CDE21BB22925C55 /* libPods-Runner.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +145,10 @@
 				5F5737EA271D498B0020B20A /* BleUtilBase.m */,
 				5F377007271675AC00944B92 /* CLBleUtil.h */,
 				5F377008271675AC00944B92 /* CLBleUtil.m */,
+				5FF76893271EB8CD00C58A9F /* RABleUtilEnhance.h */,
+				5FF76894271EB8CD00C58A9F /* RABleUtilEnhance.m */,
+				5FF76896271EB8E300C58A9F /* RABleUtilSimple.h */,
+				5FF76897271EB8E300C58A9F /* RABleUtilSimple.m */,
 				5F377013271813DB00944B92 /* DXBleBean.h */,
 				5F377014271813DB00944B92 /* DXBleBean.m */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
@@ -160,6 +173,7 @@
 		DE88C17C6776AAB7150A1626 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5FF76899271EC63500C58A9F /* RayonicsSimpleKeySDK.framework */,
 				5F37700D2716B34B00944B92 /* HNTT01CLProtocol.framework */,
 				AA93288DCBC2DDD37E6CA6C4 /* libPods-Runner.a */,
 			);
@@ -316,8 +330,10 @@
 				5F377015271813DB00944B92 /* DXBleBean.m in Sources */,
 				978B8F6F1D3862AE00F588F7 /* AppDelegate.m in Sources */,
 				5F37700627166D1E00944B92 /* BleDispatchCenter.m in Sources */,
+				5FF76898271EB8E300C58A9F /* RABleUtilSimple.m in Sources */,
 				5F5737EB271D498B0020B20A /* BleUtilBase.m in Sources */,
 				5F5737E8271D0D700020B20A /* BleSearchUtil.m in Sources */,
+				5FF76895271EB8CD00C58A9F /* RABleUtilEnhance.m in Sources */,
 				97C146F31CF9000F007C117D /* main.m in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);

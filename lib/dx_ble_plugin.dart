@@ -44,8 +44,13 @@ class DxBlePlugin {
 }
 
 class BleEvent {
+  ///回调方法
   String tag;
+
+  ///一般回调参数
   var param;
+
+  ///蓝牙搜索回调
   IBle ble;
   BleEvent({this.tag, this.ble, this.param});
 }

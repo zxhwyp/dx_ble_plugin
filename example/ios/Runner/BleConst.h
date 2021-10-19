@@ -36,9 +36,9 @@ static NSString * const METHOD_OPENLOCK = @"openlock";
 
 static NSString * const BLE_CL = @"ChuangLi";
 
-static NSString * const BLE_RUIAO_New = @"RuiAuNew";
+static NSString * const BLE_RUIAO_Enhance = @"RuiAuEnhance";
 
-static NSString * const BLE_RUIAO_Old = @"RuiAuOld";
+static NSString * const BLE_RUIAO_Simple = @"RuiAuSimple";
 
 
 #endif /* BleConst_h */
