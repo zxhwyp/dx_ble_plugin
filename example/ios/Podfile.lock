@@ -1,0 +1,35 @@
+PODS:
+  - dx_ble_plugin (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - fluttertoast (0.0.2):
+    - Flutter
+    - Toast
+  - Toast (4.0.0)
+
+DEPENDENCIES:
+  - dx_ble_plugin (from `.symlinks/plugins/dx_ble_plugin/ios`)
+  - Flutter (from `Flutter`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Toast
+
+EXTERNAL SOURCES:
+  dx_ble_plugin:
+    :path: ".symlinks/plugins/dx_ble_plugin/ios"
+  Flutter:
+    :path: Flutter
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
+
+SPEC CHECKSUMS:
+  dx_ble_plugin: 4decb680dc3fae0bdcf314b0341c09eadf51721a
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+
+PODFILE CHECKSUM: b1f7a399522c118a74b177b13c01eca692aa7e6d
+
+COCOAPODS: 1.10.1
