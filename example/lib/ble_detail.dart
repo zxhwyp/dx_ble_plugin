@@ -68,7 +68,7 @@ class _BleDetailState extends State<BleDetail> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         label('开锁', color: Colors.blue, call: () {
-          DxBlePlugin().openLock(ble: XinLi.fromDefault(entity));
+          DxBlePlugin().openLock(ble: ChuangLi.fromDefault(entity));
         }),
       ],
     );

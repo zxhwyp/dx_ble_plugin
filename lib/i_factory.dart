@@ -40,13 +40,13 @@ class DefaultBle with IBle {
   }
 }
 
-//新力蓝牙
-class XinLi extends DefaultBle {
+//创力蓝牙
+class ChuangLi extends DefaultBle {
   @override
   String get style => 'ChuangLi';
-  XinLi();
-  factory XinLi.fromDefault(DefaultBle ble) {
-    XinLi entity = XinLi();
+  ChuangLi();
+  factory ChuangLi.fromDefault(DefaultBle ble) {
+    ChuangLi entity = ChuangLi();
     entity.name = ble.name;
     entity.rssi = ble.rssi;
     entity.uuid = ble.uuid;
