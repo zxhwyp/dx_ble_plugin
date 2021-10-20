@@ -15,8 +15,6 @@
 
 @interface BleDispatchCenter()
 
-@property(strong, nonatomic) FlutterMethodChannel* bleChannel;
-
 @property(strong, nonatomic) BleSearchUtil* bleSearchUtil;
 
 @property(strong, nonatomic) BleUtilBase* bleUtil;
@@ -26,19 +24,14 @@
 @implementation BleDispatchCenter
 
 
-+ (instancetype)initBleDispatchCenter:(NSObject<FlutterBinaryMessenger> *)binaryMessenger {
-    BleDispatchCenter *center = [[BleDispatchCenter alloc]init];
-    [center initChannel:binaryMessenger];
-    [center initBleSearchUtil];
-    return center;
-}
-
-- (void)initChannel:(NSObject<FlutterBinaryMessenger> *)binaryMessenger {
-    self.bleChannel = [FlutterMethodChannel methodChannelWithName:BLE_NAME binaryMessenger:binaryMessenger];
-    __weak typeof(self) weakself = self;
-    [weakself.bleChannel setMethodCallHandler:^(FlutterMethodCall* call, FlutterResult result) {
-        [weakself flutterMethodCallHandler:call FlutterResult:result];
-    }];
++ (instancetype) shareInstance {
+    static BleDispatchCenter *_sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedInstance = [[BleDispatchCenter alloc]init];
+        [_sharedInstance initBleSearchUtil];
+    });
+    return _sharedInstance;
 }
 
 - (void)flutterMethodCallHandler:(FlutterMethodCall *)call FlutterResult:(FlutterResult)result {

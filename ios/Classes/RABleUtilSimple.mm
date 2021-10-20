@@ -74,7 +74,7 @@ static NSString * const kSecretKey = @"36363636";
 #pragma mark - RASimpleKeySDKDelegate
 
 - (void)simpleKeySDKCallBack:(NSDictionary *)retData {
-    
+
     NSLog(@"@169:ret data : %@", retData);
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *idt = [NSString stringWithFormat:@"%@", [retData valueForKey:@"idt"]];

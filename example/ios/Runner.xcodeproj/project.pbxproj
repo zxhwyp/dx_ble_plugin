@@ -9,21 +9,12 @@
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
-		5F37700627166D1E00944B92 /* BleDispatchCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F37700527166D1E00944B92 /* BleDispatchCenter.m */; };
-		5F377009271675AC00944B92 /* CLBleUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F377008271675AC00944B92 /* CLBleUtil.m */; };
-		5F3770112716B46000944B92 /* HNTT01CLProtocol.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F37700D2716B34B00944B92 /* HNTT01CLProtocol.framework */; };
-		5F377015271813DB00944B92 /* DXBleBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F377014271813DB00944B92 /* DXBleBean.m */; };
-		5F5737E8271D0D700020B20A /* BleSearchUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5737E7271D0D700020B20A /* BleSearchUtil.m */; };
-		5F5737EB271D498B0020B20A /* BleUtilBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F5737EA271D498B0020B20A /* BleUtilBase.m */; };
-		5FF76895271EB8CD00C58A9F /* RABleUtilEnhance.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF76894271EB8CD00C58A9F /* RABleUtilEnhance.m */; };
-		5FF76898271EB8E300C58A9F /* RABleUtilSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FF76897271EB8E300C58A9F /* RABleUtilSimple.m */; };
-		5FF7689A271EC63500C58A9F /* RayonicsSimpleKeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF76899271EC63500C58A9F /* RayonicsSimpleKeySDK.framework */; };
-		64EB0E389CDE21BB22925C55 /* libPods-Runner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA93288DCBC2DDD37E6CA6C4 /* libPods-Runner.a */; };
-		978B8F6F1D3862AE00F588F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */; };
+		978B8F6F1D3862AE00F588F7 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFD8EE1D35381100E5BB4D /* AppDelegate.mm */; };
 		97C146F31CF9000F007C117D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C146F21CF9000F007C117D /* main.m */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		E7ED09A8963567FCDD6D1552 /* libPods-Runner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CFA2A4FC57747D76B23FC4 /* libPods-Runner.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,29 +31,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A5C9CBC0AAB1A883C871A86 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
-		5F37700427166D1E00944B92 /* BleDispatchCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleDispatchCenter.h; sourceTree = "<group>"; };
-		5F37700527166D1E00944B92 /* BleDispatchCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleDispatchCenter.m; sourceTree = "<group>"; };
-		5F377007271675AC00944B92 /* CLBleUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLBleUtil.h; sourceTree = "<group>"; };
-		5F377008271675AC00944B92 /* CLBleUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLBleUtil.m; sourceTree = "<group>"; };
-		5F37700D2716B34B00944B92 /* HNTT01CLProtocol.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HNTT01CLProtocol.framework; sourceTree = "<group>"; };
-		5F3770122716C0AB00944B92 /* BleConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleConst.h; sourceTree = "<group>"; };
-		5F377013271813DB00944B92 /* DXBleBean.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXBleBean.h; sourceTree = "<group>"; };
-		5F377014271813DB00944B92 /* DXBleBean.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXBleBean.m; sourceTree = "<group>"; };
-		5F5737E6271D0D700020B20A /* BleSearchUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleSearchUtil.h; sourceTree = "<group>"; };
-		5F5737E7271D0D700020B20A /* BleSearchUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleSearchUtil.m; sourceTree = "<group>"; };
-		5F5737E9271D498B0020B20A /* BleUtilBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleUtilBase.h; sourceTree = "<group>"; };
-		5F5737EA271D498B0020B20A /* BleUtilBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleUtilBase.m; sourceTree = "<group>"; };
-		5FF76893271EB8CD00C58A9F /* RABleUtilEnhance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RABleUtilEnhance.h; sourceTree = "<group>"; };
-		5FF76894271EB8CD00C58A9F /* RABleUtilEnhance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RABleUtilEnhance.m; sourceTree = "<group>"; };
-		5FF76896271EB8E300C58A9F /* RABleUtilSimple.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RABleUtilSimple.h; sourceTree = "<group>"; };
-		5FF76897271EB8E300C58A9F /* RABleUtilSimple.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RABleUtilSimple.m; sourceTree = "<group>"; };
-		5FF76899271EC63500C58A9F /* RayonicsSimpleKeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RayonicsSimpleKeySDK.framework; sourceTree = "<group>"; };
+		47CFA2A4FC57747D76B23FC4 /* libPods-Runner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Runner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F910A1E3131D0F5A7FD1452 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		7AFFD8ED1D35381100E5BB4D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7AFFD8EE1D35381100E5BB4D /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,10 +48,7 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A41DC8A3C2AC7B6012005CB2 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
-		AA93288DCBC2DDD37E6CA6C4 /* libPods-Runner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Runner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B60838DCA8F73CC4198ED500 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
-		CC69BD5ECFFFE8E5724CE517 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		D6AB16BD8F630755334E0D88 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,9 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F3770112716B46000944B92 /* HNTT01CLProtocol.framework in Frameworks */,
-				5FF7689A271EC63500C58A9F /* RayonicsSimpleKeySDK.framework in Frameworks */,
-				64EB0E389CDE21BB22925C55 /* libPods-Runner.a in Frameworks */,
+				E7ED09A8963567FCDD6D1552 /* libPods-Runner.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,9 +66,9 @@
 		38424810C9DF26A060AC06EB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A41DC8A3C2AC7B6012005CB2 /* Pods-Runner.debug.xcconfig */,
-				B60838DCA8F73CC4198ED500 /* Pods-Runner.release.xcconfig */,
-				CC69BD5ECFFFE8E5724CE517 /* Pods-Runner.profile.xcconfig */,
+				D6AB16BD8F630755334E0D88 /* Pods-Runner.debug.xcconfig */,
+				4F910A1E3131D0F5A7FD1452 /* Pods-Runner.release.xcconfig */,
+				0A5C9CBC0AAB1A883C871A86 /* Pods-Runner.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -119,7 +91,7 @@
 				97C146F01CF9000F007C117D /* Runner */,
 				97C146EF1CF9000F007C117D /* Products */,
 				38424810C9DF26A060AC06EB /* Pods */,
-				DE88C17C6776AAB7150A1626 /* Frameworks */,
+				B87529BA878C58727217655A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -135,22 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				7AFFD8ED1D35381100E5BB4D /* AppDelegate.h */,
-				7AFFD8EE1D35381100E5BB4D /* AppDelegate.m */,
-				5F37700427166D1E00944B92 /* BleDispatchCenter.h */,
-				5F37700527166D1E00944B92 /* BleDispatchCenter.m */,
-				5F3770122716C0AB00944B92 /* BleConst.h */,
-				5F5737E6271D0D700020B20A /* BleSearchUtil.h */,
-				5F5737E7271D0D700020B20A /* BleSearchUtil.m */,
-				5F5737E9271D498B0020B20A /* BleUtilBase.h */,
-				5F5737EA271D498B0020B20A /* BleUtilBase.m */,
-				5F377007271675AC00944B92 /* CLBleUtil.h */,
-				5F377008271675AC00944B92 /* CLBleUtil.m */,
-				5FF76893271EB8CD00C58A9F /* RABleUtilEnhance.h */,
-				5FF76894271EB8CD00C58A9F /* RABleUtilEnhance.m */,
-				5FF76896271EB8E300C58A9F /* RABleUtilSimple.h */,
-				5FF76897271EB8E300C58A9F /* RABleUtilSimple.m */,
-				5F377013271813DB00944B92 /* DXBleBean.h */,
-				5F377014271813DB00944B92 /* DXBleBean.m */,
+				7AFFD8EE1D35381100E5BB4D /* AppDelegate.mm */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -170,12 +127,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DE88C17C6776AAB7150A1626 /* Frameworks */ = {
+		B87529BA878C58727217655A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5FF76899271EC63500C58A9F /* RayonicsSimpleKeySDK.framework */,
-				5F37700D2716B34B00944B92 /* HNTT01CLProtocol.framework */,
-				AA93288DCBC2DDD37E6CA6C4 /* libPods-Runner.a */,
+				47CFA2A4FC57747D76B23FC4 /* libPods-Runner.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -187,14 +142,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
-				0B3ADFB1CA28E5DC25F6F0D8 /* [CP] Check Pods Manifest.lock */,
+				E3A3FA47CCC4BD04A3849DBF /* [CP] Check Pods Manifest.lock */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
-				E740871ADFFFBF5A41F13D91 /* [CP] Embed Pods Frameworks */,
+				17179CF22F0083DE6F312F4E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -252,26 +207,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B3ADFB1CA28E5DC25F6F0D8 /* [CP] Check Pods Manifest.lock */ = {
+		17179CF22F0083DE6F312F4E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Runner-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
@@ -302,21 +252,26 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
 		};
-		E740871ADFFFBF5A41F13D91 /* [CP] Embed Pods Frameworks */ = {
+		E3A3FA47CCC4BD04A3849DBF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Runner-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -326,14 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F377009271675AC00944B92 /* CLBleUtil.m in Sources */,
-				5F377015271813DB00944B92 /* DXBleBean.m in Sources */,
-				978B8F6F1D3862AE00F588F7 /* AppDelegate.m in Sources */,
-				5F37700627166D1E00944B92 /* BleDispatchCenter.m in Sources */,
-				5FF76898271EB8E300C58A9F /* RABleUtilSimple.m in Sources */,
-				5F5737EB271D498B0020B20A /* BleUtilBase.m in Sources */,
-				5F5737E8271D0D700020B20A /* BleSearchUtil.m in Sources */,
-				5FF76895271EB8CD00C58A9F /* RABleUtilEnhance.m in Sources */,
+				978B8F6F1D3862AE00F588F7 /* AppDelegate.mm in Sources */,
 				97C146F31CF9000F007C117D /* main.m in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);

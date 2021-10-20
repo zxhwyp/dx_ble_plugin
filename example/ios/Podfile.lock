@@ -25,7 +25,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
 
 SPEC CHECKSUMS:
-  dx_ble_plugin: 4decb680dc3fae0bdcf314b0341c09eadf51721a
+  dx_ble_plugin: 0c2a1fbb88059dc7aa51ccc901704f54f2606df7
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
