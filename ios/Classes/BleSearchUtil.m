@@ -25,7 +25,7 @@
 
 - (void)initParams {
     self.bleDic = [[NSMutableDictionary alloc]init];
-    _mgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    _mgr = [[CBCentralManager alloc] init];
 }
 
 
@@ -41,6 +41,7 @@
     }
     [self stopScan];
     [self.bleDic removeAllObjects];
+    self.mgr.delegate = self;
     [self.mgr scanForPeripheralsWithServices:nil options:nil];
     [self performSelector:@selector(stopScan) withObject:nil afterDelay:8];
 }

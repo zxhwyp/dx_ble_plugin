@@ -24,9 +24,7 @@ class DxBlePlugin {
   /// 2. 搜索蓝牙设备
   /// @param names 按名字搜索
   Future<void> searchBleList({List<String> names}) async {
-    _channel.invokeMethod(METHOD_SEARCHBLE, names).then((value) {
-      print('object');
-    });
+    return await _channel.invokeMethod(METHOD_SEARCHBLE, names);
   }
 
 // 2. 开锁

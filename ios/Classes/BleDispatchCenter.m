@@ -57,7 +57,6 @@
 /// @param bleNames 需要搜索的蓝牙名字
 - (void)startScan:(NSArray *)bleNames {
     [_bleSearchUtil startScan: bleNames];
-
 }
 
 /// 开锁：链接设备 -> 读取设备code -> 开锁
