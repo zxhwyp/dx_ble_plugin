@@ -14,8 +14,6 @@
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     FlutterViewController* controller = (FlutterViewController*)self.window.rootViewController;
-    
-    
     FlutterMethodChannel* channel = [FlutterMethodChannel
         methodChannelWithName: BLE_NAME
               binaryMessenger:controller.binaryMessenger];

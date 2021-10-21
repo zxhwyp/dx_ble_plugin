@@ -9,6 +9,11 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, NSRASimpleKeySDKBleLockType) {
+    NSRASimpleKeySDKBleLockTypeI,
+    NSRASimpleKeySDKBleLockTypeII,
+};
+
 @protocol RASimpleKeySDKDelegate <NSObject>
 
 @optional
@@ -136,7 +141,7 @@
  }
  }
  **/
-- (void)LockCodeinit:(NSString *)lockCode secretLock:(NSString *)secretLock;
+- (void)LockCodeinit:(NSString *)lockCode groupCode:(NSString *)groupCode secretLock:(NSString *)secretLock;
 
 /**
  开锁
@@ -171,10 +176,11 @@
  
  注:开锁方法 1、2 请各厂商根据自身业务不同合理选择一种实现便可
  **/
+- (void)OpenBleLock:(NSRASimpleKeySDKBleLockType)version startTime:(NSString *)startTime endTime:(NSString *)endTime;
 - (void)OpenLock:(NSString *)lockCode secretLock:(NSString *)secretLock userID:(NSString *)userID startTime:(NSString *)startTime endTime:(NSString *)endTime;
 - (void)OpenLockOffline:(NSArray *)lockCodes areas:(NSArray *)areas startTime:(NSString *)startTime endTime:(NSString *)endTime secretLock:(NSString *)secretLock userID:(NSString *)userID;
 - (void)setOfflineOpen:(NSArray *)offlineOpenArray userID:(NSString *)userID  secretLock:(NSString *)secretLock;
-- (void)setEngineerKeyWithUserID:(NSString *)userID startTime:(NSString *)startTime endTime:(NSString *)endTime;
+- (void)setEngineerKeyWithUserID:(NSString *)userID secretLock:(NSString *)secretLock startTime:(NSString *)startTime endTime:(NSString *)endTime;
 /**
  读取钥匙开门日志
  ※可引用 SDK 初始化 方法里获取的 钥匙密钥“secretKey”
@@ -200,6 +206,8 @@
  }
  **/
 - (void)readLog;
+
+- (void)readLogNeedClean:(BOOL)needClean;
 
 /**
  日志删除

@@ -6,18 +6,29 @@
 //
 
 #import "RABleUtilEnhance.h"
+#import <RayonicsBleSDK/RayonicsScreenBleKeySDKKit.h>
+
+static NSString * const kTestSyscode = @"B0dl";
+static NSString * const kTestRegcode = @"490X";
+
+@interface RABleUtilEnhance()<SetKeyControllerDelegate>
+
+@property (nonatomic, strong) CBPeripheral *currentBle;
+
+@end
 
 @implementation RABleUtilEnhance
 
-- (instancetype)init {
+- (instancetype)initWithSearchUtil:(BleSearchUtil *)search {
     if (self = [super init]) {
+        self.searchUtil = search;
         [self initParams];
     }
     return self;
 }
 
 - (void)initParams {
-    
+    [SetKeyController setDelegate:self];
 }
 
 
@@ -36,38 +47,58 @@
         self.OpenLockCall(1, @"未知设备");
         return;
     }
+    _currentBle = ble;
+    [SetKeyController setManager:self.searchUtil.mgr peripheral: _currentBle];
 
+    ///TODO 接入厂家自己的设备连接逻辑
+    NSArray *syscode = [RASCRBleSDKPublicUtil arrayFromStr:kTestSyscode];
+    NSArray *regcode = [RASCRBleSDKPublicUtil arrayFromStr:kTestRegcode];
+    [SetKeyController connectBlueTooth:_currentBle withSyscode:syscode withRegcode:regcode withLanguageType:RASCRBleSDKLanguageTypeEnglish needResetKey:NO];
 }
 
 - (void)readBleInfo {
+    ///TODO 接入厂家自己的设备读取逻辑
+    [SetKeyController readKeyBasicInfo];
 }
 
 /// 实际做开锁的功能
 - (void)doOpenLock:(DXBleBean *)bean {
+    ///TODO 接入厂家自己的设备开锁逻辑
     //结束时间66年
-    NSDate *end = [NSDate dateWithTimeIntervalSinceNow:66 * 365 * 24 * 60 * 60];
+    NSInteger start = (NSInteger)[[NSDate date] timeIntervalSince1970];
+    NSString *startStr = [NSString stringWithFormat:@"%ld", (long)start];
+    NSInteger end = (NSInteger)[NSDate dateWithTimeIntervalSinceNow:66 * 365 * 24 * 60 * 60];
+    NSString *endStr = [NSString stringWithFormat:@"%ld", (long)end];
+//    [[RASimpleKeySDK sharedManager] OpenLock:bean.code secretLock:kSecretKey userID:@"02" startTime:startStr endTime:endStr];
 }
 
 #pragma mark -- 厂商蓝牙锁回调
-- (void)hntt01BleLockCallBackDelegate:(NSDictionary *)dic {
-    NSString *idt = [NSString stringWithFormat:@"%@", [dic valueForKey:@"idt"]];
-    NSString *ret = [NSString stringWithFormat:@"%@", [dic valueForKey:@"ret"]];
 
-    //连接回调
-    if ([idt isEqualToString:@"0202"]) {
-        [self connectCallback:[ret isEqualToString:@"true"] param:dic];
-        return;
-    }
-    //读取锁编码
-    if ([idt isEqualToString:@"0902"]) {
-        [self readLockCodeCallback:[ret isEqualToString:@"true"] param:dic];
-        return;
-    }
-    //开锁回调
-    if ([idt hasPrefix:@"1002"]) {
-        [self openLockCallback:[ret isEqualToString:@"true"] param:dic];
-        return;
-    }
+#pragma mark - RASimpleKeySDKDelegate
+
+- (void)simpleKeySDKCallBack:(NSDictionary *)retData {
+
+    NSLog(@"@169:ret data : %@", retData);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *idt = [NSString stringWithFormat:@"%@", [retData valueForKey:@"idt"]];
+        NSString *ret = [NSString stringWithFormat:@"%@", [retData valueForKey:@"ret"]];
+
+        //连接回调
+        if ([idt isEqualToString:@"0202"]) {
+            [self connectCallback:[ret isEqualToString:@"true"] param:retData];
+            return;
+        }
+        //读取锁编码
+        if ([idt isEqualToString:@"0902"]) {
+            [self readLockCodeCallback:[ret isEqualToString:@"true"] param:retData];
+            return;
+        }
+        //开锁回调
+        if ([idt hasPrefix:@"1002"]) {
+            [self openLockCallback:[ret isEqualToString:@"true"] param:retData];
+            return;
+        }
+    });
 }
 
 /// 蓝牙连接回调

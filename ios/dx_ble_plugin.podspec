@@ -17,7 +17,8 @@ A new Flutter plugin.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.platform = :ios, '9.0'
-  s.ios.vendored_frameworks = 'framework/HNTT01CLProtocol.framework', 'framework/RayonicsSimpleKeySDK.framework'
+  s.ios.vendored_frameworks = 'framework/**/*.framework'
+  s.libraries = 'c++'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

@@ -8,6 +8,8 @@
 #import "RABleUtilSimple.h"
 #import <RayonicsSimpleKeySDK/RayonicsSimpleKeySDKKit.h>
 
+static NSString * const kPlatformID = @"Y4wW66ehl2YsizHzAQAh979/lt6DBrwRw+gHE23fqVPCW906EQ5AEYA7zjMaSS8emOQ+kYpmsUyRLM6CzL7+EGIYfMi4z2hYSWqOzU7fhJXJV2DxxQWpbtaFfGdEdgVmxCF5nxXQDHzn8v/a4xxM8PnHJGbMWFWHSSXTE8nbNXk=";
+static NSString * const kTimesStamp = @"1478746865348";
 static NSString * const kSecretKey = @"36363636";
 
 @interface RABleUtilSimple()<RASimpleKeySDKDelegate>
@@ -28,6 +30,7 @@ static NSString * const kSecretKey = @"36363636";
 
 - (void)initParams {
     [RASimpleKeySDK sharedManager].delegate = self;
+    [[RASimpleKeySDK sharedManager] SDKinit:kPlatformID TimesStamp:kTimesStamp secretKey:kSecretKey];
 }
 
 
@@ -47,8 +50,8 @@ static NSString * const kSecretKey = @"36363636";
         return;
     }
     _currentBle = ble;
-    [RASimpleKeySDK setManager:self.searchUtil.mgr peripheral: _currentBle];
 
+    [RASimpleKeySDK setManager:self.searchUtil.mgr peripheral: _currentBle];
     ///TODO 接入厂家自己的设备连接逻辑
     [[RASimpleKeySDK sharedManager] bleConnect:self.searchUtil.mgr peripheral:_currentBle];
 }
@@ -61,12 +64,17 @@ static NSString * const kSecretKey = @"36363636";
 /// 实际做开锁的功能
 - (void)doOpenLock:(DXBleBean *)bean {
     ///TODO 接入厂家自己的设备开锁逻辑
-    //结束时间66年
-    NSInteger start = (NSInteger)[[NSDate date] timeIntervalSince1970];
-    NSString *startStr = [NSString stringWithFormat:@"%ld", start];
-    NSInteger end = (NSInteger)[NSDate dateWithTimeIntervalSinceNow:66 * 365 * 24 * 60 * 60];
-    NSString *endStr = [NSString stringWithFormat:@"%ld", end];
-    [[RASimpleKeySDK sharedManager] OpenLock:bean.code secretLock:kSecretKey userID:@"02" startTime:startStr endTime:endStr];
+    NSString *startStr = [self dateFormatter:[NSDate date]];
+    NSDate *end = [NSDate dateWithTimeIntervalSinceNow: 7 * 24 * 60 * 60];
+    NSString *endStr = [self dateFormatter: end];
+    [[RASimpleKeySDK sharedManager] OpenBleLock:NSRASimpleKeySDKBleLockTypeII startTime:startStr endTime:endStr];
+}
+
+- (NSString *)dateFormatter:(NSDate *)date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"yyMMddHHmm";
+    NSString *str = [formatter stringFromDate:date];
+    return str;
 }
 
 #pragma mark -- 厂商蓝牙锁回调
@@ -81,18 +89,18 @@ static NSString * const kSecretKey = @"36363636";
         NSString *ret = [NSString stringWithFormat:@"%@", [retData valueForKey:@"ret"]];
 
         //连接回调
-        if ([idt isEqualToString:@"0202"]) {
+        if ([idt hasPrefix:@"02"]) {
             [self connectCallback:[ret isEqualToString:@"true"] param:retData];
             return;
         }
-        //读取锁编码
-        if ([idt isEqualToString:@"0902"]) {
-            [self readLockCodeCallback:[ret isEqualToString:@"true"] param:retData];
-            return;
-        }
+        //读取锁编码是针对钥匙的
+//        if ([idt hasPrefix:@"09"]) {
+//            [self readLockCodeCallback:[ret isEqualToString:@"true"] param:retData];
+//            return;
+//        }
         //开锁回调
-        if ([idt hasPrefix:@"1002"]) {
-            [self openLockCallback:[ret isEqualToString:@"true"] param:retData];
+        if ([idt hasPrefix:@"10"]) {
+            [self openLockCallback:[ret isEqualToString:@"1"] param:retData];
             return;
         }
     });
@@ -101,23 +109,23 @@ static NSString * const kSecretKey = @"36363636";
 /// 蓝牙连接回调
 - (void)connectCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
-        [self readBleInfo];
+        [self doOpenLock:self.currentBean];
         return;
     }
     self.OpenLockCall(1, @"蓝牙连接失败");
 }
 /// 读取锁编码
-- (void)readLockCodeCallback:(BOOL)result param:(NSDictionary *)dic {
-    NSDictionary *codeDic = [dic objectForKey:@"obj"];
-    NSString *code = [codeDic objectForKey:@"lockCode"];
-
-    if (result && code != nil) {
-        self.currentBean.code = code;
-        [self doOpenLock: self.currentBean];
-        return;
-    }
-    self.OpenLockCall(2, @"蓝牙信息读取失败");
-}
+//- (void)readLockCodeCallback:(BOOL)result param:(NSDictionary *)dic {
+//    NSDictionary *codeDic = [dic objectForKey:@"obj"];
+//    NSString *code = [codeDic objectForKey:@"lockCode"];
+//
+//    if (result && code != nil) {
+//        self.currentBean.code = code;
+//        [self doOpenLock: self.currentBean];
+//        return;
+//    }
+//    self.OpenLockCall(2, @"蓝牙信息读取失败");
+//}
 ///  开锁回调
 - (void)openLockCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
