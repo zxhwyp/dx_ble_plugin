@@ -32,6 +32,11 @@ class DxBlePlugin {
     return await _channel.invokeMethod(METHOD_OPENLOCK, ble.toJson());
   }
 
+  // 2. 设置蓝牙锁指令
+  Future<void> setKeyTask({IBle ble}) async {
+    return await _channel.invokeMethod(METHOD_SET_KEY_TASK, ble.toJson());
+  }
+
   Future<dynamic> methodCall(MethodCall call) async {
     var value = call.arguments;
     if (call.method == CALL_SEARCH) {

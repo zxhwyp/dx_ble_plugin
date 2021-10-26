@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(strong, nonatomic) NSNumber* rssi;
 
-@property(copy, nonatomic, readonly) NSString* style;
+@property(copy, nonatomic) NSString* style;
 
 + (instancetype)fromJson:(NSDictionary *)map;
 

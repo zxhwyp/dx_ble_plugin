@@ -115,7 +115,7 @@ static NSString * const kSecretKey = @"36363636";
     self.OpenLockCall(1, @"蓝牙连接失败");
 }
 /// 读取锁编码
-//- (void)readLockCodeCallback:(BOOL)result param:(NSDictionary *)dic {
+//- (void)readLockCodeCallback:(BOO L)result param:(NSDictionary *)dic {
 //    NSDictionary *codeDic = [dic objectForKey:@"obj"];
 //    NSString *code = [codeDic objectForKey:@"lockCode"];
 //

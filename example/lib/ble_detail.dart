@@ -67,8 +67,16 @@ class _BleDetailState extends State<BleDetail> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        label('开锁', color: Colors.blue, call: () {
-          DxBlePlugin().openLock(ble: RuiAoSimple.fromDefault(entity));
+        label('设置蓝牙锁指令', color: Colors.blue, call: () {
+          ChuangLiKey key = ChuangLiKey.fromDefault(entity);
+          key.package = TaskPackage.fromJson({
+            'lockCodes': ['0791030086126560'],
+            'areas': ['0791'],
+            'startTime': '2021-10-26 17:10',
+            'endTime': '2022-10-26 16:20',
+            'offlineTime': 24
+          });
+          DxBlePlugin().setKeyTask(ble: key);
         }),
       ],
     );

@@ -9,12 +9,15 @@
 #import "DXBleBean.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BleSearchUtil.h"
+#import "DXBleKeyBean.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BleUtilBase : NSObject
 
 @property(copy, nonatomic) void(^OpenLockCall)(NSInteger code,NSString *errorInfo);
+
+@property(copy, nonatomic) void(^SetKeyTaskCall)(NSInteger code,NSString *errorInfo);
 
 
 /*外设角色，我们当选中某个外设连接成功后，将外设对象赋值给该对象*/
@@ -25,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 开锁：链接设备 -> 读取设备code -> 开锁
 /// @param bean 蓝牙对象
 - (void)openLock:(DXBleBean *)bean;
+
+- (void)setKeyTask:(DXBleKeyBean *)bean;
 
 @end
 

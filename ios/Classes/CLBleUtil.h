@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 创力蓝牙工具
 @interface CLBleUtil : BleUtilBase
 
+- (instancetype)initWithType:(BOOL)isKey;
+
 @end
 
 NS_ASSUME_NONNULL_END

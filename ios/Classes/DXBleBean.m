@@ -9,8 +9,6 @@
 
 @interface DXBleBean()
 
-@property(copy, nonatomic) NSString* style;
-
 @end
 
 @implementation DXBleBean

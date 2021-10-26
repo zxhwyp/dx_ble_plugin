@@ -11,6 +11,8 @@ mixin IBle {
 
   num rssi;
 
+  TaskPackage package;
+
   ///锁类型
   String get style;
   Map toJson() {
@@ -19,7 +21,8 @@ mixin IBle {
       'style': style,
       'code': code,
       'name': name,
-      'rssi': rssi
+      'rssi': rssi,
+      'package': package?.toJson()
     };
   }
 }
@@ -40,13 +43,28 @@ class DefaultBle with IBle {
   }
 }
 
-//创力蓝牙
+///创力蓝牙门锁
 class ChuangLi extends DefaultBle {
   @override
   String get style => 'ChuangLi';
   ChuangLi();
   factory ChuangLi.fromDefault(DefaultBle ble) {
     ChuangLi entity = ChuangLi();
+    entity.name = ble.name;
+    entity.rssi = ble.rssi;
+    entity.uuid = ble.uuid;
+    entity.code = ble.code;
+    return entity;
+  }
+}
+
+///创力蓝牙钥匙
+class ChuangLiKey extends DefaultBle {
+  @override
+  String get style => 'ChuangLiKey';
+  ChuangLiKey();
+  factory ChuangLiKey.fromDefault(DefaultBle ble) {
+    ChuangLiKey entity = ChuangLiKey();
     entity.name = ble.name;
     entity.rssi = ble.rssi;
     entity.uuid = ble.uuid;
@@ -84,5 +102,40 @@ class RuiAoSimple extends DefaultBle {
     entity.uuid = ble.uuid;
     entity.code = ble.code;
     return entity;
+  }
+}
+
+class TaskPackage {
+  List lockCodes;
+  List areas;
+  String startTime;
+  String endTime;
+  num offlineTime;
+
+  TaskPackage(
+      {this.areas,
+      this.endTime,
+      this.lockCodes,
+      this.offlineTime,
+      this.startTime});
+
+  factory TaskPackage.fromJson(Map package) {
+    TaskPackage entity = TaskPackage();
+    entity.lockCodes = package['lockCodes'];
+    entity.areas = package['areas'];
+    entity.startTime = package['startTime'];
+    entity.endTime = package['endTime'];
+    entity.offlineTime = package['offlineTime'];
+    return entity;
+  }
+
+  Map toJson() {
+    Map package = Map();
+    package['lockCodes'] = lockCodes;
+    package['areas'] = areas;
+    package['startTime'] = startTime;
+    package['endTime'] = endTime;
+    package['offlineTime'] = offlineTime;
+    return package;
   }
 }

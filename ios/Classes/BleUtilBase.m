@@ -9,8 +9,9 @@
 
 @implementation BleUtilBase
 
-- (void)openLock:(DXBleBean *)bean {
-    
-}
+- (void)openLock:(DXBleBean *)bean {}
+
+- (void)setKeyTask:(DXBleKeyBean *)bean{}
+
 
 @end

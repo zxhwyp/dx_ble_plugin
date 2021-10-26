@@ -12,6 +12,7 @@
 #import "BleUtilBase.h"
 #import "RABleUtilEnhance.h"
 #import "RABleUtilSimple.h"
+#import "DXBleKeyBean.h"
 
 @interface BleDispatchCenter()
 
@@ -49,6 +50,13 @@
         result(@1);
         return;
     }
+    
+    if ([call.method isEqualToString: METHOD_SET_KEY_TASK]) {
+        DXBleKeyBean *bean = [DXBleKeyBean fromJson: call.arguments];
+        [self setKeyTask: bean];
+        result(@1);
+        return;
+    }
     result(@0);
 }
 
@@ -63,6 +71,12 @@
 /// @param bean 蓝牙对象
 - (void)openLock:(DXBleBean *)bean {
     [self initBleutil:bean];
+}
+
+/// 设置蓝牙钥匙指令用于开门：链接设备 -> 读取设备code -> 开锁
+/// @param bean 蓝牙钥匙对象
+- (void)setKeyTask:(DXBleKeyBean *)bean {
+    [self initBleKeyUtil: bean];
 }
 
 - (void)initBleSearchUtil {
@@ -85,7 +99,9 @@
 
 - (void)initBleutil:(DXBleBean *)bean {
     if ([bean.style isEqualToString: BLE_CL]) {
-        _bleUtil = [[CLBleUtil alloc] init];
+        _bleUtil = [[CLBleUtil alloc] initWithType:false];
+    }else if ([bean.style isEqualToString: BLE_CL_KEY]) {
+        _bleUtil = [[CLBleUtil alloc] initWithType:true];
     }else if ([bean.style isEqualToString: BLE_RUIAO_Enhance]) {
         _bleUtil = [[RABleUtilEnhance alloc] init];
     }else if ([bean.style isEqualToString: BLE_RUIAO_Simple]) {
@@ -97,6 +113,18 @@
         [weakself.bleChannel invokeMethod:CALL_OPENLOCK arguments: @{@"@code": @(code), @"info": errorInfo}];
     };
     [_bleUtil openLock: bean];
+}
+
+- (void)initBleKeyUtil:(DXBleKeyBean *)bean {
+    if ([bean.style isEqualToString: BLE_CL_KEY]) {
+        _bleUtil = [[CLBleUtil alloc] initWithType:true];
+    }
+    _bleUtil.searchUtil = _bleSearchUtil;
+    __weak typeof(self) weakself = self;
+    _bleUtil.SetKeyTaskCall = ^(NSInteger code, NSString * _Nonnull errorInfo) {
+        [weakself.bleChannel invokeMethod:CALL_SETKEYTASK arguments: @{@"@code": @(code), @"info": errorInfo}];
+    };
+    [_bleUtil setKeyTask:bean];
 }
 
 @end
