@@ -75,8 +75,11 @@
 - (void)doSetKeyTask {
     DXBleKeyBean *key = (DXBleKeyBean *) self.currentBean;
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    [_hnBleLock setTaskWithLockCodes:key.package.lockCodes areas:key.package.areas startTime:[formatter dateFromString:key.package.startTime] endTime:[formatter dateFromString:key.package.endTime] offLineTime:key.package.offLineTime];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    
+    NSDate *start = [formatter dateFromString:key.package.startTime];
+    NSDate *end = [formatter dateFromString:key.package.endTime];
+    [_hnBleLock setTaskWithLockCodes:key.package.lockCodes areas:key.package.areas startTime:start endTime:end offLineTime:key.package.offLineTime];
 }
 
 
@@ -114,15 +117,21 @@
 
 /// 蓝牙连接回调
 - (void)connectCallback:(BOOL)result param:(NSDictionary *)dic {
-    if (!result) {
+    
+    @try {
+        if (!result) {
+            self.OpenLockCall(1, @"蓝牙连接失败");
+            return;
+        }
+        if (_isKey) {
+            [self initKey];
+        }else{
+            [self readBleInfo];
+        }
+    } @catch (NSException *exception) {
         self.OpenLockCall(1, @"蓝牙连接失败");
-        return;
     }
-    if (_isKey) {
-        [self initKey];
-    }else{
-        [self readBleInfo];
-    }
+  
 }
 
 /// 读取锁编码

@@ -82,8 +82,8 @@
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *, id> *)advertisementData RSSI:(NSNumber *)RSSI {
     NSString *name = peripheral.name;
-    if (name == nil) {
-        name = @"";
+    if (name == nil || [name isEqualToString:@""]) {
+        return;
     }
     if (self.filters == nil || self.filters.count == 0) {
         [self.bleDic setValue:peripheral forKey:peripheral.identifier.UUIDString];

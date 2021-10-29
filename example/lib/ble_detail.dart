@@ -70,10 +70,10 @@ class _BleDetailState extends State<BleDetail> {
         label('设置蓝牙锁指令', color: Colors.blue, call: () {
           ChuangLiKey key = ChuangLiKey.fromDefault(entity);
           key.package = TaskPackage.fromJson({
-            'lockCodes': ['0791030086126560'],
+            'lockCodes': ['0791060087733490'],
             'areas': ['0791'],
-            'startTime': '2021-10-26 17:10',
-            'endTime': '2022-10-26 16:20',
+            'startTime': '2021-10-27',
+            'endTime': '2022-10-27',
             'offlineTime': 24
           });
           DxBlePlugin().setKeyTask(ble: key);
