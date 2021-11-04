@@ -7,6 +7,8 @@ const METHOD_OPENLOCK = "openlock";
 
 const METHOD_SET_KEY_TASK = "setkeytask";
 
+const METHOD_INIT_BLE_LOCK = "initBleLock";
+
 //---------------原生主动调用flutter方法------------//
 ///错误回调
 const CALL_ERROR = "errorCall";

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:event_bus/event_bus.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'ble_const.dart';
 import 'i_factory.dart';
@@ -28,13 +29,18 @@ class DxBlePlugin {
   }
 
 // 2. 开锁
-  Future<void> openLock({IBle ble}) async {
+  Future<void> openLock({@required IBle ble}) async {
     return await _channel.invokeMethod(METHOD_OPENLOCK, ble.toJson());
   }
 
   // 2. 设置蓝牙锁指令
-  Future<void> setKeyTask({IBle ble}) async {
+  Future<void> setKeyTask({@required IBle ble}) async {
     return await _channel.invokeMethod(METHOD_SET_KEY_TASK, ble.toJson());
+  }
+
+  // 2. 锁具初始化
+  Future<Map> initBleLock({@required IBle ble}) async {
+    return await _channel.invokeMethod(METHOD_INIT_BLE_LOCK, ble.toJson());
   }
 
   Future<dynamic> methodCall(MethodCall call) async {

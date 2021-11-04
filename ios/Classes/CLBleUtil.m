@@ -7,10 +7,12 @@
 
 #import "CLBleUtil.h"
 #import <HNTT01CLProtocol/HNTT01CLProtocol.h>
-
+#import "BleConst.h"
 @interface CLBleUtil()<hntt01BleLockCallBackDelegate>
 
 @property (nonatomic, strong) HNTT01BleLock * hnBleLock;
+
+@property (nonatomic, strong) FlutterResult ftResult;
 
 /// 是否是蓝牙钥匙
 @property (nonatomic, assign) BOOL isKey;
@@ -45,7 +47,13 @@
     //连接
     [self connectBle:bean];
 }
-
+///初始化锁具
+- (void)initBleBlock:(DXBleBean *)bean result:(FlutterResult)result{
+    self.currentBean = bean;
+    self.ftResult = result;
+    //连接
+    [self connectBle:bean];
+}
 
 - (void)connectBle:(DXBleBean *)bean {
     CBPeripheral *ble = [self.searchUtil.bleDic valueForKey:bean.uuid];
@@ -81,7 +89,14 @@
     NSDate *end = [formatter dateFromString:key.package.endTime];
     [_hnBleLock setTaskWithLockCodes:key.package.lockCodes areas:key.package.areas startTime:start endTime:end offLineTime:key.package.offLineTime];
 }
-
+///初始化锁具
+- (void)doInitLock {
+    if (self.currentBean.code == nil) {
+        self.ftResult(@{@"code":@1, @"msg":@"请传入锁具编码"});
+        return;
+    }
+    [_hnBleLock lockCodeInit:self.currentBean.code];
+}
 
 #pragma mark -- 厂商蓝牙锁回调
 - (void)hntt01BleLockCallBackDelegate:(NSDictionary *)dic {
@@ -113,6 +128,11 @@
         [self setTaskCallback:[ret isEqualToString:@"true"] param:dic];
         return;
     }
+
+    if ([idt hasPrefix:@"08"]) {
+        [self initLockCallback:[ret isEqualToString:@"true"] param:dic];
+        return;
+    }
 }
 
 /// 蓝牙连接回调
@@ -123,13 +143,21 @@
             self.OpenLockCall(1, @"蓝牙连接失败");
             return;
         }
-        if (_isKey) {
+        if ([self.command isEqual:METHOD_SET_KEY_TASK]) {
             [self initKey];
-        }else{
+        } else if ([self.command isEqual:METHOD_OPENLOCK]) {
             [self readBleInfo];
+        }else if ([self.command isEqual:METHOD_INIT_BLE_LOCK]) {
+            [self doInitLock];
         }
     } @catch (NSException *exception) {
-        self.OpenLockCall(1, @"蓝牙连接失败");
+        if ([self.command isEqual:METHOD_SET_KEY_TASK]) {
+            self.SetKeyTaskCall(3, @"设置蓝牙钥匙信息失败");
+        } else if ([self.command isEqual:METHOD_OPENLOCK]) {
+            self.OpenLockCall(1, @"蓝牙连接失败");
+        }else if ([self.command isEqual:METHOD_INIT_BLE_LOCK]) {
+            self.ftResult(@{@"code":@1, @"msg":@"初始化锁具失败"});
+        }
     }
   
 }
@@ -171,5 +199,13 @@
     self.SetKeyTaskCall(3, @"设置蓝牙钥匙信息失败");
 }
 
+///初始化锁具回调
+- (void)initLockCallback:(BOOL)result param:(NSDictionary *)dic {
+    if (result) {
+        self.ftResult(@{@"code":@0, @"msg":@"初始化锁具成功"});
+        return;
+    }
+    self.ftResult(@{@"code":@1, @"msg":@"初始化锁具失败"});
+}
 
 @end

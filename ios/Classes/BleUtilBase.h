@@ -10,6 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "BleSearchUtil.h"
 #import "DXBleKeyBean.h"
+#import <Flutter/Flutter.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,12 +25,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) DXBleBean * currentBean;
 
 @property (nonatomic, strong) BleSearchUtil * searchUtil;
+///当前指令
+@property (nonatomic, strong) NSString * command;
 
 /// 开锁：链接设备 -> 读取设备code -> 开锁
 /// @param bean 蓝牙对象
 - (void)openLock:(DXBleBean *)bean;
 
 - (void)setKeyTask:(DXBleKeyBean *)bean;
+
+- (void)initBleBlock:(DXBleBean *)bean result:(FlutterResult)result;
 
 @end
 

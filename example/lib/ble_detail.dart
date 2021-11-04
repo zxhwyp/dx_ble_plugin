@@ -64,9 +64,12 @@ class _BleDetailState extends State<BleDetail> {
   }
 
   Widget action() {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        label('开锁', color: Colors.blue, call: () {
+          DxBlePlugin().openLock();
+        }),
         label('设置蓝牙锁指令', color: Colors.blue, call: () {
           ChuangLiKey key = ChuangLiKey.fromDefault(entity);
           key.package = TaskPackage.fromJson({
@@ -77,6 +80,13 @@ class _BleDetailState extends State<BleDetail> {
             'offlineTime': 24
           });
           DxBlePlugin().setKeyTask(ble: key);
+        }),
+        label('初始化锁具', color: Colors.blue, call: () {
+          //该方法回调不经过通知 直接方法返回结果
+          DxBlePlugin().initBleLock().then((value) {
+            String msg = value['msg'];
+            showToast(msg);
+          });
         }),
       ],
     );

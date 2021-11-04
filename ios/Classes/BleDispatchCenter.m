@@ -20,6 +20,8 @@
 
 @property(strong, nonatomic) BleUtilBase* bleUtil;
 
+@property (nonatomic, strong) NSString * command;
+
 @end
 
 @implementation BleDispatchCenter
@@ -36,7 +38,7 @@
 }
 
 - (void)flutterMethodCallHandler:(FlutterMethodCall *)call FlutterResult:(FlutterResult)result {
-    
+    self.command = call.method;
     if ([call.method isEqualToString: METHOD_SEARCHBLE]) {
         NSArray *names = (NSArray *)call.arguments;
         [self startScan: names];
@@ -57,6 +59,12 @@
         result(@1);
         return;
     }
+    
+    if ([call.method isEqualToString: METHOD_INIT_BLE_LOCK]) {
+        DXBleBean *bean = [DXBleBean fromJson: call.arguments];
+        [self initBleLock: bean result: result];
+        return;
+    }
     result(@0);
 }
 
@@ -71,18 +79,33 @@
 /// @param bean 蓝牙对象
 - (void)openLock:(DXBleBean *)bean {
     [self initBleutil:bean];
+    __weak typeof(self) weakself = self;
+    _bleUtil.OpenLockCall = ^(NSInteger code, NSString * _Nonnull errorInfo) {
+        [weakself.bleChannel invokeMethod:CALL_OPENLOCK arguments: @{@"@code": @(code), @"info": errorInfo}];
+    };
+    [_bleUtil openLock: bean];
+}
+
+- (void)initBleLock:(DXBleBean *)bean result:(FlutterResult)result{
+    [self initBleutil:bean];
+    [_bleUtil initBleBlock:bean result:result];
 }
 
 /// 设置蓝牙钥匙指令用于开门：链接设备 -> 读取设备code -> 开锁
 /// @param bean 蓝牙钥匙对象
 - (void)setKeyTask:(DXBleKeyBean *)bean {
-    [self initBleKeyUtil: bean];
+    [self initBleutil: bean];
+    __weak typeof(self) weakself = self;
+    _bleUtil.SetKeyTaskCall = ^(NSInteger code, NSString * _Nonnull errorInfo) {
+        [weakself.bleChannel invokeMethod:CALL_SETKEYTASK arguments: @{@"@code": @(code), @"info": errorInfo}];
+    };
+    [_bleUtil setKeyTask:bean];
 }
+
 
 - (void)initBleSearchUtil {
     __weak typeof(self) weakself = self;
     _bleSearchUtil = [[BleSearchUtil alloc] init];
-    
     _bleSearchUtil.BleError = ^(NSInteger code, NSString * _Nonnull errorInfo) {
         [weakself.bleChannel invokeMethod:CALL_ERROR arguments:@{@"@code": @(code), @"info": errorInfo}];
     };
@@ -108,23 +131,8 @@
         _bleUtil = [[RABleUtilSimple alloc] initWithSearchUtil:_bleSearchUtil];
     }
     _bleUtil.searchUtil = _bleSearchUtil;
-    __weak typeof(self) weakself = self;
-    _bleUtil.OpenLockCall = ^(NSInteger code, NSString * _Nonnull errorInfo) {
-        [weakself.bleChannel invokeMethod:CALL_OPENLOCK arguments: @{@"@code": @(code), @"info": errorInfo}];
-    };
-    [_bleUtil openLock: bean];
-}
+    _bleUtil.command = self.command;
 
-- (void)initBleKeyUtil:(DXBleKeyBean *)bean {
-    if ([bean.style isEqualToString: BLE_CL_KEY]) {
-        _bleUtil = [[CLBleUtil alloc] initWithType:true];
-    }
-    _bleUtil.searchUtil = _bleSearchUtil;
-    __weak typeof(self) weakself = self;
-    _bleUtil.SetKeyTaskCall = ^(NSInteger code, NSString * _Nonnull errorInfo) {
-        [weakself.bleChannel invokeMethod:CALL_SETKEYTASK arguments: @{@"@code": @(code), @"info": errorInfo}];
-    };
-    [_bleUtil setKeyTask:bean];
 }
 
 @end

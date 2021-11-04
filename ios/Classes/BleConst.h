@@ -37,6 +37,8 @@ static NSString *const METHOD_OPENLOCK = @"openlock";
 /// 设置蓝牙钥匙指令
 static NSString *const METHOD_SET_KEY_TASK = @"setkeytask";
 
+static NSString *const METHOD_INIT_BLE_LOCK = @"initBleLock";
+
 static NSString *const BLE_CL = @"ChuangLi";
 
 static NSString *const BLE_CL_KEY = @"ChuangLiKey";
