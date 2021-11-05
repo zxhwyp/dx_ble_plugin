@@ -7,12 +7,9 @@
 
 #import "CLBleUtil.h"
 #import <HNTT01CLProtocol/HNTT01CLProtocol.h>
-#import "BleConst.h"
 @interface CLBleUtil()<hntt01BleLockCallBackDelegate>
 
 @property (nonatomic, strong) HNTT01BleLock * hnBleLock;
-
-@property (nonatomic, strong) FlutterResult ftResult;
 
 /// 是否是蓝牙钥匙
 @property (nonatomic, assign) BOOL isKey;

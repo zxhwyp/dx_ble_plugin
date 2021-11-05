@@ -42,6 +42,19 @@ static NSString * const kSecretKey = @"36363636";
     [self connectBle:bean];
 }
 
+- (void)setKeyTask:(DXBleKeyBean *)bean {
+    self.currentBean = bean;
+    //连接
+    [self connectBle:bean];
+}
+///初始化锁具
+- (void)initBleBlock:(DXBleBean *)bean result:(FlutterResult)result{
+    self.currentBean = bean;
+    self.ftResult = result;
+    //连接
+    [self connectBle:bean];
+}
+
 
 - (void)connectBle:(DXBleBean *)bean {
     CBPeripheral *ble = [self.searchUtil.bleDic valueForKey:bean.uuid];
@@ -61,6 +74,11 @@ static NSString * const kSecretKey = @"36363636";
     [[RASimpleKeySDK sharedManager] readKeyInfo];
 }
 
+///初始化钥匙
+- (void)initKey {
+    [[RASimpleKeySDK sharedManager] Keyinit];
+}
+
 /// 实际做开锁的功能
 - (void)doOpenLock:(DXBleBean *)bean {
     ///TODO 接入厂家自己的设备开锁逻辑
@@ -68,6 +86,25 @@ static NSString * const kSecretKey = @"36363636";
     NSDate *end = [NSDate dateWithTimeIntervalSinceNow: 7 * 24 * 60 * 60];
     NSString *endStr = [self dateFormatter: end];
     [[RASimpleKeySDK sharedManager] OpenBleLock:NSRASimpleKeySDKBleLockTypeII startTime:startStr endTime:endStr];
+}
+
+- (void)doSetKeyTask {
+    DXBleKeyBean *key = (DXBleKeyBean *) self.currentBean;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    NSDate *start = [formatter dateFromString:key.package.startTime];
+    NSDate *end = [formatter dateFromString:key.package.endTime];
+    [[RASimpleKeySDK sharedManager] setEngineerKeyWithUserID:@"2" secretLock:kSecretKey startTime:[formatter stringFromDate:start] endTime:[formatter stringFromDate:end]];
+}
+
+///初始化锁具
+- (void)doInitLock {
+    if (self.currentBean.code == nil) {
+        self.ftResult(@{@"code":@1, @"msg":@"请传入锁具编码"});
+        return;
+    }
+    [[RASimpleKeySDK sharedManager] LockCodeinit:self.currentBean.code groupCode:@"2" secretLock:kSecretKey];
+
 }
 
 - (NSString *)dateFormatter:(NSDate *)date {
@@ -93,14 +130,29 @@ static NSString * const kSecretKey = @"36363636";
             [self connectCallback:[ret isEqualToString:@"true"] param:retData];
             return;
         }
+        //钥匙初始化回调
+        if ([idt hasPrefix:@"05"]) {
+            [self initKeyCallback:[ret isEqualToString:@"true"] param:retData];
+            return;
+        }
         //读取锁编码是针对钥匙的
-//        if ([idt hasPrefix:@"09"]) {
-//            [self readLockCodeCallback:[ret isEqualToString:@"true"] param:retData];
-//            return;
-//        }
+        if ([idt hasPrefix:@"09"]) {
+            [self readLockCodeCallback:[ret isEqualToString:@"true"] param:retData];
+            return;
+        }
         //开锁回调
         if ([idt hasPrefix:@"10"]) {
             [self openLockCallback:[ret isEqualToString:@"1"] param:retData];
+            return;
+        }
+        ///设置紧急开门指令
+        if ([idt hasPrefix:@"11"]) {
+            [self setTaskCallback:[ret isEqualToString:@"true"] param:retData];
+            return;
+        }
+        //初始化锁具编码回调
+        if ([idt hasPrefix:@"08"]) {
+            [self initLockCallback:[ret isEqualToString:@"true"] param:retData];
             return;
         }
     });
@@ -108,24 +160,50 @@ static NSString * const kSecretKey = @"36363636";
 
 /// 蓝牙连接回调
 - (void)connectCallback:(BOOL)result param:(NSDictionary *)dic {
-    if (result) {
-        [self doOpenLock:self.currentBean];
-        return;
+    @try {
+        if (!result) {
+               self.OpenLockCall(1, @"蓝牙连接失败");
+               return;
+           }
+           if ([self.command isEqual:METHOD_SET_KEY_TASK]) {
+               [self initKey];
+           } else if ([self.command isEqual:METHOD_OPENLOCK]) {
+               [self doOpenLock:self.currentBean];
+           }else if ([self.command isEqual:METHOD_INIT_BLE_LOCK]) {
+               [self doInitLock];
+           }
+    } @catch (NSException *exception) {
+        if ([self.command isEqual:METHOD_SET_KEY_TASK]) {
+             self.SetKeyTaskCall(3, @"设置蓝牙钥匙信息失败");
+         } else if ([self.command isEqual:METHOD_OPENLOCK]) {
+             self.OpenLockCall(1, @"蓝牙连接失败");
+         }else if ([self.command isEqual:METHOD_INIT_BLE_LOCK]) {
+             self.ftResult(@{@"code":@1, @"msg":@"初始化锁具失败"});
+         }
     }
-    self.OpenLockCall(1, @"蓝牙连接失败");
+
 }
 /// 读取锁编码
-//- (void)readLockCodeCallback:(BOO L)result param:(NSDictionary *)dic {
-//    NSDictionary *codeDic = [dic objectForKey:@"obj"];
-//    NSString *code = [codeDic objectForKey:@"lockCode"];
-//
-//    if (result && code != nil) {
-//        self.currentBean.code = code;
-//        [self doOpenLock: self.currentBean];
-//        return;
-//    }
-//    self.OpenLockCall(2, @"蓝牙信息读取失败");
-//}
+- (void)readLockCodeCallback:(BOOL)result param:(NSDictionary *)dic {
+    NSDictionary *codeDic = [dic objectForKey:@"obj"];
+    NSString *code = [codeDic objectForKey:@"lockCode"];
+
+    if (result && code != nil) {
+        self.currentBean.code = code;
+        [self doOpenLock: self.currentBean];
+        return;
+    }
+    self.OpenLockCall(2, @"蓝牙信息读取失败");
+}
+
+///钥匙初始化回调
+- (void)initKeyCallback:(BOOL)result param:(NSDictionary *)dic {
+    if (result) {
+        [self doSetKeyTask];
+        return;
+    }
+    self.SetKeyTaskCall(2, @"蓝牙钥匙初始化失败");
+}
 ///  开锁回调
 - (void)openLockCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
@@ -133,6 +211,23 @@ static NSString * const kSecretKey = @"36363636";
         return;
     }
     self.OpenLockCall(3, @"蓝牙开锁失败");
+}
+
+///  设置钥匙task回调
+- (void)setTaskCallback:(BOOL)result param:(NSDictionary *)dic {
+    if (result) {
+        self.SetKeyTaskCall(0, @"设置蓝牙钥匙信息成功");
+        return;
+    }
+    self.SetKeyTaskCall(3, @"设置蓝牙钥匙信息失败");
+}
+///初始化锁具回调
+- (void)initLockCallback:(BOOL)result param:(NSDictionary *)dic {
+    if (result) {
+        self.ftResult(@{@"code":@0, @"msg":@"初始化锁具成功"});
+        return;
+    }
+    self.ftResult(@{@"code":@1, @"msg":@"初始化锁具失败"});
 }
 
 @end

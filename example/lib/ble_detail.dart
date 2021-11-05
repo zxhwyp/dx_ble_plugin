@@ -54,11 +54,14 @@ class _BleDetailState extends State<BleDetail> {
   }
 
   Widget label(String title, {Color color = Colors.black, VoidCallback call}) {
-    return GestureDetector(
-      onTap: call,
-      child: Text(
-        title,
-        style: TextStyle(color: color),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
+      child: GestureDetector(
+        onTap: call,
+        child: Text(
+          title,
+          style: TextStyle(color: color),
+        ),
       ),
     );
   }
