@@ -39,14 +39,17 @@
         self.BleStatus(self.mgr.state, @"请检查蓝牙是否开启");
         return;
     }
-    [self stopScan];
+    [self stopScan: @"NO"];
     [self.bleDic removeAllObjects];
     self.mgr.delegate = self;
     [self.mgr scanForPeripheralsWithServices:nil options:nil];
-    [self performSelector:@selector(stopScan) withObject:nil afterDelay:8];
+    [self performSelector:@selector(stopScan:) withObject:@"YES" afterDelay:6];
 }
 
-- (void)stopScan {
+- (void)stopScan:(NSString *)over {
+    if ([over isEqualToString:@"YES"]) {
+        self.BleError(3, @"搜索超时");
+    }
     [self.mgr stopScan];
 }
 

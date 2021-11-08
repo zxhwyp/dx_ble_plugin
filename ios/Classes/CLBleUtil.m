@@ -170,7 +170,7 @@
     }
     self.OpenLockCall(2, @"蓝牙信息读取失败");
     self.ftResult(@{@"code":@2, @"msg":@"蓝牙信息读取失败"});
-
+    [_hnBleLock bleDisConnect];
 }
 ///钥匙初始化回调
 - (void)initKeyCallback:(BOOL)result param:(NSDictionary *)dic {
@@ -191,6 +191,7 @@
     }
     self.OpenLockCall(3, @"蓝牙开锁失败");
     self.ftResult(@{@"code":@3, @"msg":@"蓝牙开锁失败"});
+    [_hnBleLock bleDisConnect];
 }
 ///  设置钥匙task回调
 - (void)setTaskCallback:(BOOL)result param:(NSDictionary *)dic {
@@ -207,8 +208,6 @@
 - (void)initLockCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
         self.ftResult(@{@"code":@0, @"msg":@"初始化锁具成功"});
-        self.ftResult(@{@"code":@0, @"msg":@"初始化锁具成功"});
-
         return;
     }
     self.ftResult(@{@"code":@3, @"msg":@"初始化锁具失败"});

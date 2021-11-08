@@ -215,6 +215,7 @@ static NSString * const kSecretKey = @"36363636";
     }
     self.OpenLockCall(3, @"蓝牙开锁失败");
     self.ftResult(@{@"code":@3, @"msg":@"蓝牙开锁失败"});
+    [[RASimpleKeySDK sharedManager] bleDisConnect: self.searchUtil.mgr];
 }
 
 ///  设置钥匙task回调
