@@ -44,7 +44,7 @@ static NSString * const kTestRegcode = @"490X";
 - (void)connectBle:(DXBleBean *)bean {
     CBPeripheral *ble = [self.searchUtil.bleDic valueForKey:bean.uuid];
     if (ble == nil) {
-        self.ftResult(@{@"code":@1, @"msg":@"未知设备"});
+        self.ftResult(@{@"code":@1, @"info":@"未知设备"});
         return;
     }
     _currentBle = ble;
@@ -107,7 +107,7 @@ static NSString * const kTestRegcode = @"490X";
         [self readBleInfo];
         return;
     }
-    self.ftResult(@{@"code":@1, @"msg":@"蓝牙连接失败"});
+    self.ftResult(@{@"code":@1, @"info":@"蓝牙连接失败"});
 }
 /// 读取锁编码
 - (void)readLockCodeCallback:(BOOL)result param:(NSDictionary *)dic {
@@ -119,16 +119,16 @@ static NSString * const kTestRegcode = @"490X";
         [self doOpenLock: self.currentBean];
         return;
     }
-    self.ftResult(@{@"code":@2, @"msg":@"蓝牙信息读取失败"});
+    self.ftResult(@{@"code":@2, @"info":@"蓝牙信息读取失败"});
 
 }
 ///  开锁回调
 - (void)openLockCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
-        self.ftResult(@{@"code":@0, @"msg":@"蓝牙开锁成功"});
+        self.ftResult(@{@"code":@0, @"info":@"蓝牙开锁成功"});
         return;
     }
-    self.ftResult(@{@"code":@3, @"msg":@"蓝牙开锁失败"});
+    self.ftResult(@{@"code":@3, @"info":@"蓝牙开锁失败"});
 }
 
 @end

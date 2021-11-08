@@ -54,7 +54,7 @@
 - (void)connectBle:(DXBleBean *)bean {
     CBPeripheral *ble = [self.searchUtil.bleDic valueForKey:bean.uuid];
     if (ble == nil) {
-        self.ftResult(@{@"code":@1, @"msg":@"未知设备"});
+        self.ftResult(@{@"code":@1, @"info":@"未知设备"});
         return;
     }
     [_hnBleLock bleConnectWithPeripheral:ble manager:self.searchUtil.mgr secretKey:@"xW2Nr5QZHxTLC06v" secretLock:@"47111C334E043030BDAB3931" userID:@"34953" isKeyDevice: _isKey];
@@ -88,7 +88,7 @@
 ///初始化锁具
 - (void)doInitLock {
     if (self.currentBean.code == nil) {
-        self.ftResult(@{@"code":@1, @"msg":@"请传入锁具编码"});
+        self.ftResult(@{@"code":@1, @"info":@"请传入锁具编码"});
         return;
     }
     [_hnBleLock lockCodeInit:self.currentBean.code];
@@ -136,7 +136,7 @@
     
     @try {
         if (!result) {
-            self.ftResult(@{@"code":@1, @"msg":@"蓝牙连接失败"});
+            self.ftResult(@{@"code":@1, @"info":@"蓝牙连接失败"});
             return;
         }
         if ([self.command isEqual:METHOD_SET_KEY_TASK]) {
@@ -147,7 +147,7 @@
             [self doInitLock];
         }
     } @catch (NSException *exception) {
-        self.ftResult(@{@"code":@1, @"msg":@"蓝牙连接失败"});
+        self.ftResult(@{@"code":@1, @"info":@"蓝牙连接失败"});
     }
   
 }
@@ -162,7 +162,7 @@
         [self doOpenLock: self.currentBean];
         return;
     }
-    self.ftResult(@{@"code":@2, @"msg":@"蓝牙信息读取失败"});
+    self.ftResult(@{@"code":@2, @"info":@"蓝牙信息读取失败"});
     [_hnBleLock bleDisConnect];
 }
 ///钥匙初始化回调
@@ -171,34 +171,34 @@
         [self doSetKeyTask];
         return;
     }
-    self.ftResult(@{@"code":@2, @"msg":@"蓝牙钥匙初始化失败"});
+    self.ftResult(@{@"code":@2, @"info":@"蓝牙钥匙初始化失败"});
 
 }
 ///  开锁回调
 - (void)openLockCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
-        self.ftResult(@{@"code":@0, @"msg":@"蓝牙开锁成功"});
+        self.ftResult(@{@"code":@0, @"info":@"蓝牙开锁成功"});
         return;
     }
-    self.ftResult(@{@"code":@3, @"msg":@"蓝牙开锁失败"});
+    self.ftResult(@{@"code":@3, @"info":@"蓝牙开锁失败"});
     [_hnBleLock bleDisConnect];
 }
 ///  设置钥匙task回调
 - (void)setTaskCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
-        self.ftResult(@{@"code":@0, @"msg":@"设置蓝牙钥匙信息成功"});
+        self.ftResult(@{@"code":@0, @"info":@"设置蓝牙钥匙信息成功"});
         return;
     }
-    self.ftResult(@{@"code":@3, @"msg":@"设置蓝牙钥匙信息失败"});
+    self.ftResult(@{@"code":@3, @"info":@"设置蓝牙钥匙信息失败"});
 }
 
 ///初始化锁具回调
 - (void)initLockCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
-        self.ftResult(@{@"code":@0, @"msg":@"初始化锁具成功"});
+        self.ftResult(@{@"code":@0, @"info":@"初始化锁具成功"});
         return;
     }
-    self.ftResult(@{@"code":@3, @"msg":@"初始化锁具失败"});
+    self.ftResult(@{@"code":@3, @"info":@"初始化锁具失败"});
 }
 
 @end
