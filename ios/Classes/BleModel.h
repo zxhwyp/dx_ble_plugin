@@ -19,4 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface FResult : NSObject
+
+@property(copy, nonatomic) NSString *info;
+
+@property(strong, nonatomic) NSNumber *code;
+
+@end
+
 NS_ASSUME_NONNULL_END

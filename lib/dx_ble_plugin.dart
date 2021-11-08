@@ -29,18 +29,21 @@ class DxBlePlugin {
   }
 
 // 2. 开锁
-  Future<void> openLock({@required IBle ble}) async {
-    return await _channel.invokeMethod(METHOD_OPENLOCK, ble.toJson());
+  Future<NativeResult> openLock({@required IBle ble}) async {
+    Map value = await _channel.invokeMethod(METHOD_OPENLOCK, ble.toJson());
+    return NativeResult.fromJson(value);
   }
 
   // 2. 设置蓝牙锁指令
-  Future<void> setKeyTask({@required IBle ble}) async {
-    return await _channel.invokeMethod(METHOD_SET_KEY_TASK, ble.toJson());
+  Future<NativeResult> setKeyTask({@required IBle ble}) async {
+    Map value = await _channel.invokeMethod(METHOD_SET_KEY_TASK, ble.toJson());
+    return NativeResult.fromJson(value);
   }
 
   // 2. 锁具初始化
-  Future<Map> initBleLock({@required IBle ble}) async {
-    return await _channel.invokeMethod(METHOD_INIT_BLE_LOCK, ble.toJson());
+  Future<NativeResult> initBleLock({@required IBle ble}) async {
+    Map value = await _channel.invokeMethod(METHOD_INIT_BLE_LOCK, ble.toJson());
+    return NativeResult.fromJson(value);
   }
 
   Future<dynamic> methodCall(MethodCall call) async {
@@ -64,4 +67,22 @@ class BleEvent {
   ///蓝牙搜索回调
   IBle ble;
   BleEvent({this.tag, this.ble, this.param});
+}
+
+class NativeResult {
+  ///回调信息
+  String info;
+
+  ///回调code：0成功，非0失败
+  int code;
+
+  NativeResult({this.info, this.code});
+
+  factory NativeResult.fromJson(Map value) {
+    value = value ?? {};
+    NativeResult entity = NativeResult();
+    entity.info = value['info'] ?? '';
+    entity.code = value['code'];
+    return entity;
+  }
 }

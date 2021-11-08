@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) NSString * command;
 
+@property (nonatomic, strong) FlutterResult ftResult;
+
 @end
 
 @implementation BleDispatchCenter
@@ -39,6 +41,7 @@
 
 - (void)flutterMethodCallHandler:(FlutterMethodCall *)call FlutterResult:(FlutterResult)result {
     self.command = call.method;
+    self.ftResult = result;
     if ([call.method isEqualToString: METHOD_SEARCHBLE]) {
         NSArray *names = (NSArray *)call.arguments;
         [self startScan: names];
@@ -49,20 +52,18 @@
     if ([call.method isEqualToString: METHOD_OPENLOCK]) {
         DXBleBean *bean = [DXBleBean fromJson: call.arguments];
         [self openLock:bean];
-        result(@1);
         return;
     }
     
     if ([call.method isEqualToString: METHOD_SET_KEY_TASK]) {
         DXBleKeyBean *bean = [DXBleKeyBean fromJson: call.arguments];
         [self setKeyTask: bean];
-        result(@1);
         return;
     }
     
     if ([call.method isEqualToString: METHOD_INIT_BLE_LOCK]) {
         DXBleBean *bean = [DXBleBean fromJson: call.arguments];
-        [self initBleLock: bean result: result];
+        [self initBleLock: bean];
         return;
     }
     result(@0);
@@ -85,10 +86,10 @@
     };
     [_bleUtil openLock: bean];
 }
-
-- (void)initBleLock:(DXBleBean *)bean result:(FlutterResult)result{
+//初始化锁具
+- (void)initBleLock:(DXBleBean *)bean {
     [self initBleutil:bean];
-    [_bleUtil initBleBlock:bean result:result];
+    [_bleUtil initBleBlock:bean];
 }
 
 /// 设置蓝牙钥匙指令用于开门：链接设备 -> 读取设备code -> 开锁
@@ -132,7 +133,7 @@
     }
     _bleUtil.searchUtil = _bleSearchUtil;
     _bleUtil.command = self.command;
-
+    _bleUtil.ftResult = self.ftResult;
 }
 
 @end

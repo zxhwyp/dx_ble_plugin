@@ -40,8 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 初始化锁具
 /// @param bean 蓝牙对象
-/// @param result flutter回调
-- (void)initBleBlock:(DXBleBean *)bean result:(FlutterResult)result;
+- (void)initBleBlock:(DXBleBean *)bean;
 
 @end
 

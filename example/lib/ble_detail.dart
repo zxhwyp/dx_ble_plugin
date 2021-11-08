@@ -87,8 +87,7 @@ class _BleDetailState extends State<BleDetail> {
         label('初始化锁具', color: Colors.blue, call: () {
           //该方法回调不经过通知 直接方法返回结果
           DxBlePlugin().initBleLock().then((value) {
-            String msg = value['msg'];
-            showToast(msg);
+            showToast(value.info);
           });
         }),
       ],

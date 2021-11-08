@@ -13,6 +13,6 @@
 
 - (void)setKeyTask:(DXBleKeyBean *)bean{}
 
-- (void)initBleBlock:(DXBleBean *)bean result:(FlutterResult)result{}
+- (void)initBleBlock:(DXBleBean *)bean{}
 
 @end

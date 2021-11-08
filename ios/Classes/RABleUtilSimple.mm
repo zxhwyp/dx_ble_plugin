@@ -163,6 +163,7 @@ static NSString * const kSecretKey = @"36363636";
     @try {
         if (!result) {
                self.OpenLockCall(1, @"蓝牙连接失败");
+               self.ftResult(@{@"code":@1, @"msg":@"蓝牙连接失败"});
                return;
            }
            if ([self.command isEqual:METHOD_SET_KEY_TASK]) {
@@ -177,9 +178,8 @@ static NSString * const kSecretKey = @"36363636";
              self.SetKeyTaskCall(3, @"设置蓝牙钥匙信息失败");
          } else if ([self.command isEqual:METHOD_OPENLOCK]) {
              self.OpenLockCall(1, @"蓝牙连接失败");
-         }else if ([self.command isEqual:METHOD_INIT_BLE_LOCK]) {
-             self.ftResult(@{@"code":@1, @"msg":@"初始化锁具失败"});
          }
+        self.ftResult(@{@"code":@3, @"msg":@"蓝牙连接失败"});
     }
 
 }
@@ -194,6 +194,7 @@ static NSString * const kSecretKey = @"36363636";
         return;
     }
     self.OpenLockCall(2, @"蓝牙信息读取失败");
+    self.ftResult(@{@"code":@2, @"msg":@"蓝牙信息读取失败"});
 }
 
 ///钥匙初始化回调
@@ -203,23 +204,28 @@ static NSString * const kSecretKey = @"36363636";
         return;
     }
     self.SetKeyTaskCall(2, @"蓝牙钥匙初始化失败");
+    self.ftResult(@{@"code":@2, @"msg":@"蓝牙钥匙初始化失败"});
 }
 ///  开锁回调
 - (void)openLockCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
         self.OpenLockCall(0, @"蓝牙开锁成功");
+        self.ftResult(@{@"code":@0, @"msg":@"蓝牙开锁成功"});
         return;
     }
     self.OpenLockCall(3, @"蓝牙开锁失败");
+    self.ftResult(@{@"code":@3, @"msg":@"蓝牙开锁失败"});
 }
 
 ///  设置钥匙task回调
 - (void)setTaskCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
         self.SetKeyTaskCall(0, @"设置蓝牙钥匙信息成功");
+        self.ftResult(@{@"code":@3, @"msg":@"设置蓝牙钥匙信息成功"});
         return;
     }
     self.SetKeyTaskCall(3, @"设置蓝牙钥匙信息失败");
+    self.ftResult(@{@"code":@3, @"msg":@"设置蓝牙钥匙信息失败"});
 }
 ///初始化锁具回调
 - (void)initLockCallback:(BOOL)result param:(NSDictionary *)dic {
@@ -227,7 +233,7 @@ static NSString * const kSecretKey = @"36363636";
         self.ftResult(@{@"code":@0, @"msg":@"初始化锁具成功"});
         return;
     }
-    self.ftResult(@{@"code":@1, @"msg":@"初始化锁具失败"});
+    self.ftResult(@{@"code":@3, @"msg":@"初始化锁具失败"});
 }
 
 @end
