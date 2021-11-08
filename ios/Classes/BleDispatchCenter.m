@@ -80,10 +80,6 @@
 /// @param bean 蓝牙对象
 - (void)openLock:(DXBleBean *)bean {
     [self initBleutil:bean];
-    __weak typeof(self) weakself = self;
-    _bleUtil.OpenLockCall = ^(NSInteger code, NSString * _Nonnull errorInfo) {
-        [weakself.bleChannel invokeMethod:CALL_OPENLOCK arguments: @{@"@code": @(code), @"info": errorInfo}];
-    };
     [_bleUtil openLock: bean];
 }
 //初始化锁具
@@ -96,10 +92,6 @@
 /// @param bean 蓝牙钥匙对象
 - (void)setKeyTask:(DXBleKeyBean *)bean {
     [self initBleutil: bean];
-    __weak typeof(self) weakself = self;
-    _bleUtil.SetKeyTaskCall = ^(NSInteger code, NSString * _Nonnull errorInfo) {
-        [weakself.bleChannel invokeMethod:CALL_SETKEYTASK arguments: @{@"@code": @(code), @"info": errorInfo}];
-    };
     [_bleUtil setKeyTask:bean];
 }
 

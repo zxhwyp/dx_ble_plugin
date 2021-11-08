@@ -17,21 +17,9 @@ static NSString *const CALL_STATUS = @"statusCall";
 
 static NSString *const CALL_SEARCH = @"searchCall";
 
-static NSString *const CALL_CONNECTLOCK = @"connectlockCall";
-
-static NSString *const CALL_LOCKCODE = @"lockcodeCall";
-
-static NSString *const CALL_OPENLOCK = @"openlockCall";
-
-static NSString *const CALL_SETKEYTASK = @"setkeytaskCall";
-
 //flutter主动调用原生方法
 
 static NSString *const METHOD_SEARCHBLE = @"searchBleList";
-
-static NSString *const METHOD_CONNECTLOCK = @"connectlock";
-
-static NSString *const METHOD_READLOCKCODE = @"readlockcode";
 
 static NSString *const METHOD_OPENLOCK = @"openlock";
 /// 设置蓝牙钥匙指令

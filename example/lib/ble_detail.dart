@@ -23,9 +23,6 @@ class _BleDetailState extends State<BleDetail> {
         case CALL_STATUS:
           showToast(event.param.toString());
           break;
-        case CALL_OPENLOCK:
-          showToast(event.param.toString());
-          break;
         default:
       }
     });

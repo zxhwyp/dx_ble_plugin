@@ -54,7 +54,7 @@
 - (void)connectBle:(DXBleBean *)bean {
     CBPeripheral *ble = [self.searchUtil.bleDic valueForKey:bean.uuid];
     if (ble == nil) {
-        self.OpenLockCall(1, @"未知设备");
+        self.ftResult(@{@"code":@1, @"msg":@"未知设备"});
         return;
     }
     [_hnBleLock bleConnectWithPeripheral:ble manager:self.searchUtil.mgr secretKey:@"xW2Nr5QZHxTLC06v" secretLock:@"47111C334E043030BDAB3931" userID:@"34953" isKeyDevice: _isKey];
@@ -137,7 +137,6 @@
     @try {
         if (!result) {
             self.ftResult(@{@"code":@1, @"msg":@"蓝牙连接失败"});
-            self.OpenLockCall(1, @"蓝牙连接失败");
             return;
         }
         if ([self.command isEqual:METHOD_SET_KEY_TASK]) {
@@ -148,11 +147,6 @@
             [self doInitLock];
         }
     } @catch (NSException *exception) {
-        if ([self.command isEqual:METHOD_SET_KEY_TASK]) {
-            self.SetKeyTaskCall(3, @"设置蓝牙钥匙信息失败");
-        } else if ([self.command isEqual:METHOD_OPENLOCK]) {
-            self.OpenLockCall(1, @"蓝牙连接失败");
-        }
         self.ftResult(@{@"code":@1, @"msg":@"蓝牙连接失败"});
     }
   
@@ -168,7 +162,6 @@
         [self doOpenLock: self.currentBean];
         return;
     }
-    self.OpenLockCall(2, @"蓝牙信息读取失败");
     self.ftResult(@{@"code":@2, @"msg":@"蓝牙信息读取失败"});
     [_hnBleLock bleDisConnect];
 }
@@ -178,29 +171,24 @@
         [self doSetKeyTask];
         return;
     }
-    self.SetKeyTaskCall(2, @"蓝牙钥匙初始化失败");
     self.ftResult(@{@"code":@2, @"msg":@"蓝牙钥匙初始化失败"});
 
 }
 ///  开锁回调
 - (void)openLockCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
-        self.OpenLockCall(0, @"蓝牙开锁成功");
         self.ftResult(@{@"code":@0, @"msg":@"蓝牙开锁成功"});
         return;
     }
-    self.OpenLockCall(3, @"蓝牙开锁失败");
     self.ftResult(@{@"code":@3, @"msg":@"蓝牙开锁失败"});
     [_hnBleLock bleDisConnect];
 }
 ///  设置钥匙task回调
 - (void)setTaskCallback:(BOOL)result param:(NSDictionary *)dic {
     if (result) {
-        self.SetKeyTaskCall(0, @"设置蓝牙钥匙信息成功");
         self.ftResult(@{@"code":@0, @"msg":@"设置蓝牙钥匙信息成功"});
         return;
     }
-    self.SetKeyTaskCall(3, @"设置蓝牙钥匙信息失败");
     self.ftResult(@{@"code":@3, @"msg":@"设置蓝牙钥匙信息失败"});
 }
 
