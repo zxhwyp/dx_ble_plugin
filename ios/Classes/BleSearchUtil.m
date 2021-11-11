@@ -89,11 +89,12 @@
         return;
     }
     if (self.filters == nil || self.filters.count == 0) {
-        [self.bleDic setValue:peripheral forKey:peripheral.identifier.UUIDString];
-        self.BleSearchCall(@{@"name": name, @"uuid": peripheral.identifier.UUIDString,
-                             @"rssi": RSSI
-                           });
         return;
+//        [self.bleDic setValue:peripheral forKey:peripheral.identifier.UUIDString];
+//        self.BleSearchCall(@{@"name": name, @"uuid": peripheral.identifier.UUIDString,
+//                             @"rssi": RSSI
+//                           });
+//        return;
     }
     
     if ([self.filters containsObject:peripheral.name]) {

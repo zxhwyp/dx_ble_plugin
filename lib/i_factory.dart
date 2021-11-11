@@ -1,6 +1,6 @@
 ///蓝牙接口类
 mixin IBle {
-  ///编码
+  ///锁具编码
   String code;
 
   ///唯一标识uuid

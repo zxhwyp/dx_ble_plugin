@@ -24,7 +24,7 @@ class DxBlePlugin {
 
   /// 2. 搜索蓝牙设备
   /// @param names 按名字搜索
-  Future<void> searchBleList({List<String> names}) async {
+  Future<bool> searchBleList({List<String> names}) async {
     return await _channel.invokeMethod(METHOD_SEARCHBLE, names);
   }
 
@@ -34,13 +34,13 @@ class DxBlePlugin {
     return NativeResult.fromJson(value);
   }
 
-  // 2. 设置蓝牙锁指令
+// 2. 应急钥匙/区域授权
   Future<NativeResult> setKeyTask({@required IBle ble}) async {
     Map value = await _channel.invokeMethod(METHOD_SET_KEY_TASK, ble.toJson());
     return NativeResult.fromJson(value);
   }
 
-  // 2. 锁具初始化
+  // 2. 创力设置锁具编码/创力重置锁具编码
   Future<NativeResult> initBleLock({@required IBle ble}) async {
     Map value = await _channel.invokeMethod(METHOD_INIT_BLE_LOCK, ble.toJson());
     return NativeResult.fromJson(value);
