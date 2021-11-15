@@ -176,15 +176,16 @@
 }
 ///  开锁回调
 - (void)openLockCallback:(BOOL)result param:(NSDictionary *)dic {
+    [_hnBleLock bleDisConnect];
     if (result) {
         self.ftResult(@{@"code":@0, @"info":@"蓝牙开锁成功"});
         return;
     }
     self.ftResult(@{@"code":@3, @"info":@"蓝牙开锁失败"});
-    [_hnBleLock bleDisConnect];
 }
 ///  设置钥匙task回调
 - (void)setTaskCallback:(BOOL)result param:(NSDictionary *)dic {
+    [_hnBleLock bleDisConnect];
     if (result) {
         self.ftResult(@{@"code":@0, @"info":@"设置蓝牙钥匙信息成功"});
         return;
@@ -194,6 +195,7 @@
 
 ///初始化锁具回调
 - (void)initLockCallback:(BOOL)result param:(NSDictionary *)dic {
+    [_hnBleLock bleDisConnect];
     if (result) {
         self.ftResult(@{@"code":@0, @"info":@"初始化锁具成功"});
         return;
