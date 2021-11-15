@@ -29,7 +29,8 @@
 }
 
 
-- (void)startScan:(NSArray<NSString *> *)bleNames {
+- (void)startScan:(NSArray *)bleNames needFilter:(BOOL)filter {
+    self.needfilter = filter;
     self.filters = bleNames;
     [self startScan];
 }
@@ -88,16 +89,16 @@
     if (name == nil || [name isEqualToString:@""]) {
         return;
     }
-    if (self.filters == nil || self.filters.count == 0) {
-        return;
-//        [self.bleDic setValue:peripheral forKey:peripheral.identifier.UUIDString];
-//        self.BleSearchCall(@{@"name": name, @"uuid": peripheral.identifier.UUIDString,
-//                             @"rssi": RSSI
-//                           });
-//        return;
+    
+    if (!self.needfilter) {
+            [self.bleDic setValue:peripheral forKey:peripheral.identifier.UUIDString];
+            self.BleSearchCall(@{@"name": name, @"uuid": peripheral.identifier.UUIDString,
+                                 @"rssi": RSSI });
+            return;
     }
     
-    if ([self.filters containsObject:peripheral.name]) {
+    if ([self.filters isKindOfClass:[NSArray class]] &&
+        [self.filters containsObject:peripheral.name]) {
         [self.bleDic setValue:peripheral forKey:peripheral.identifier.UUIDString];
         self.BleSearchCall(@{@"name": name, @"uuid": peripheral.identifier.UUIDString,
                              @"rssi": RSSI

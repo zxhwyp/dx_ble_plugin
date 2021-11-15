@@ -2,6 +2,8 @@
 ///搜索蓝牙列表
 const METHOD_SEARCHBLE = "searchBleList";
 
+const METHOD_SEARCHBLE_ALL = "searchBleListAll";
+
 ///开锁
 const METHOD_OPENLOCK = "openlock";
 

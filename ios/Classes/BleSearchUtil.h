@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, nonatomic) void(^BleSearchCall)(NSDictionary * _Nullable ble);
 
 @property (nonatomic, copy) NSArray<NSString *> *filters;
+/// 是否需要按名字过滤，默认是
+@property (nonatomic, assign) BOOL needfilter;
 
 /*中心角色*/
 @property (nonatomic, strong) CBCentralManager *mgr;
@@ -28,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 蓝牙搜索
 /// @param bleNames 需要搜索的蓝牙名字
-- (void)startScan:(NSArray *)bleNames;
+- (void)startScan:(NSArray *)bleNames needFilter:(BOOL)filter;
 
 @end
 

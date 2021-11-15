@@ -21,6 +21,8 @@ static NSString *const CALL_SEARCH = @"searchCall";
 
 static NSString *const METHOD_SEARCHBLE = @"searchBleList";
 
+static NSString *const METHOD_SEARCHBLE_ALL = @"searchBleListAll";
+
 static NSString *const METHOD_OPENLOCK = @"openlock";
 /// 设置蓝牙钥匙指令
 static NSString *const METHOD_SET_KEY_TASK = @"setkeytask";

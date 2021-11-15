@@ -44,7 +44,13 @@
     self.ftResult = result;
     if ([call.method isEqualToString: METHOD_SEARCHBLE]) {
         NSArray *names = (NSArray *)call.arguments;
-        [self startScan: names];
+        [self startScan: names needFilter:YES];
+        result(@1);
+        return;
+    }
+    
+    if ([call.method isEqualToString: METHOD_SEARCHBLE_ALL]) {
+        [self startScan: nil needFilter:NO];
         result(@1);
         return;
     }
@@ -72,9 +78,11 @@
 
 /// 蓝牙搜索: 根据平台初始化对应的蓝牙sdk -> 开始搜索
 /// @param bleNames 需要搜索的蓝牙名字
-- (void)startScan:(NSArray *)bleNames {
-    [_bleSearchUtil startScan: bleNames];
+/// @param needFilter 是否需要按名字过滤蓝牙
+- (void)startScan:(NSArray *)bleNames needFilter:(BOOL) needFilter {
+    [_bleSearchUtil startScan: bleNames needFilter:needFilter];
 }
+
 
 /// 开锁：链接设备 -> 读取设备code -> 开锁
 /// @param bean 蓝牙对象
