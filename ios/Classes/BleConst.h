@@ -11,10 +11,6 @@
 //原生主动调用flutter方法
 static NSString *const BLE_NAME = @"com.dx.bleplugin";
 
-static NSString *const CALL_ERROR = @"errorCall";
-
-static NSString *const CALL_STATUS = @"statusCall";
-
 static NSString *const CALL_SEARCH = @"searchCall";
 
 //flutter主动调用原生方法

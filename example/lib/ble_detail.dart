@@ -15,17 +15,6 @@ class _BleDetailState extends State<BleDetail> {
   @override
   void initState() {
     super.initState();
-    DxBlePlugin().globalEB.on<BleEvent>().listen((event) {
-      switch (event.tag) {
-        case CALL_ERROR:
-          showToast(event.param.toString());
-          break;
-        case CALL_STATUS:
-          showToast(event.param.toString());
-          break;
-        default:
-      }
-    });
   }
 
   @override

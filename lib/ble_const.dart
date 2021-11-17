@@ -12,11 +12,6 @@ const METHOD_SET_KEY_TASK = "setkeytask";
 const METHOD_INIT_BLE_LOCK = "initBleLock";
 
 //-------------flutter主动调用原生方法--------------//
-///错误回调
-const CALL_ERROR = "errorCall";
-
-///手机蓝牙设备状态回调
-const CALL_STATUS = "statusCall";
 
 ///蓝牙搜索回调
 const CALL_SEARCH = "searchCall";

@@ -22,12 +22,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     DxBlePlugin().globalEB.on<BleEvent>().listen((event) {
       switch (event.tag) {
-        case CALL_ERROR:
-          showToast(event.param.toString());
-          break;
-        case CALL_STATUS:
-          showToast(event.param.toString());
-          break;
         case CALL_SEARCH:
           setState(() {
             if (bles.map((e) => e.uuid).toList().contains(event.ble.uuid) ==
