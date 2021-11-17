@@ -18,6 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<IBle> bles = <IBle>[];
+  String status = '未知';
   @override
   void initState() {
     DxBlePlugin().globalEB.on<BleEvent>().listen((event) {
@@ -48,6 +49,24 @@ class _MyAppState extends State<MyApp> {
           children: [search(), ...bles.map((e) => bleList(e)).toList()],
         ),
       ),
+    );
+  }
+
+  Widget bleStatus() {
+    return Align(
+      alignment: Alignment.center,
+      child: TextButton(
+          onPressed: () {
+            DxBlePlugin().bleStatus().then((value) {
+              setState(() {
+                status = value.info;
+              });
+            });
+          },
+          child: Text(
+            '点击获取蓝牙状态：$status',
+            style: TextStyle(color: Colors.blue),
+          )),
     );
   }
 

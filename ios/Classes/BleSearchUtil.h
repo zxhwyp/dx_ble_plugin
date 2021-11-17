@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BleSearchUtil : NSObject
 
-@property (nonatomic, strong) FlutterResult ftResult;
-
 @property(copy, nonatomic) void(^BleSearchCall)(NSDictionary * _Nullable ble);
 
 @property (nonatomic, copy) NSArray<NSString *> *filters;
@@ -27,9 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CBPeripheral *>* bleDic;
 
+- (void)bleStatus:(FlutterResult)result;
+
 /// 蓝牙搜索
 /// @param bleNames 需要搜索的蓝牙名字
-- (void)startScan:(NSArray *)bleNames needFilter:(BOOL)filter;
+- (void)startScan:(NSArray *)bleNames needFilter:(BOOL)filter  result:(FlutterResult)result;
 
 @end
 

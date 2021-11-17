@@ -22,6 +22,12 @@ class DxBlePlugin {
     _channel.setMethodCallHandler(methodCall);
   }
 
+  /// 获取蓝牙状态
+  Future<NativeResult> bleStatus() async {
+    Map value = await _channel.invokeMethod(METHOD_BLE_STATUS);
+    return NativeResult.fromJson(value);
+  }
+
   /// 2. 搜索蓝牙设备
   /// @param names 搜索全部蓝牙
   Future<NativeResult> searchBleAll() async {

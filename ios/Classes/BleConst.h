@@ -15,6 +15,8 @@ static NSString *const CALL_SEARCH = @"searchCall";
 
 //flutter主动调用原生方法
 
+static NSString *const METHOD_BLE_STATUS = @"bleStatus";
+
 static NSString *const METHOD_SEARCHBLE = @"searchBleList";
 
 static NSString *const METHOD_SEARCHBLE_ALL = @"searchBleListAll";

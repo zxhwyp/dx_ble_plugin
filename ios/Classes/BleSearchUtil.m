@@ -11,6 +11,10 @@
 
 @property (nonatomic, copy) NSString * statusInfo;
 
+@property (nonatomic, assign) int statusCode;
+
+@property (nonatomic, strong) FlutterResult ftResult;
+
 @end
 
 @implementation BleSearchUtil
@@ -29,8 +33,15 @@
     self.mgr.delegate = self;
 }
 
+- (void)bleStatus:(FlutterResult)result {
+    int bleCode = _statusCode == 5 ? 0 : 1;
+    result(@{@"code": @(bleCode), @"info": _statusInfo});
+}
 
-- (void)startScan:(NSArray *)bleNames needFilter:(BOOL)filter {
+
+
+- (void)startScan:(NSArray *)bleNames needFilter:(BOOL)filter  result:(FlutterResult)result {
+    self.ftResult = result;
     self.needfilter = filter;
     self.filters = bleNames;
     [self startScan];
@@ -56,29 +67,37 @@
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    int code = 0;
+    _statusCode = 5;
     switch (central.state) {
         case 0:
             _statusInfo = @"设备未知类型";
-            code = 0;
+            _statusCode = 0;
+            break;
+        case 1:
+            _statusInfo = @"蓝牙重置中";
+            _statusCode = 0;
             break;
         case 2:
             _statusInfo = @"设备不支持蓝牙功能";
-            code = 2;
+            _statusCode = 2;
             break;
         case 3:
-            code = 3;
+            _statusCode = 3;
             _statusInfo = @"蓝牙功能未授权";
             break;
         case 4:
-            code = 4;
+            _statusCode = 4;
             _statusInfo = @"未打开蓝牙";
+            break;
+        case 5:
+            _statusCode = 5;
+            _statusInfo = @"蓝牙已打开";
             break;
         default:
             break;
     }
     if (self.ftResult != nil) {
-        self.ftResult(@{@"code": @(code), @"info": _statusInfo});
+        self.ftResult(@{@"code": @(_statusCode), @"info": _statusInfo});
     }
 }
 

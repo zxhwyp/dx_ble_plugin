@@ -4,6 +4,8 @@ const METHOD_SEARCHBLE = "searchBleList";
 
 const METHOD_SEARCHBLE_ALL = "searchBleListAll";
 
+const METHOD_BLE_STATUS = "bleStatus";
+
 ///开锁
 const METHOD_OPENLOCK = "openlock";
 

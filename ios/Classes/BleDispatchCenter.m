@@ -42,16 +42,20 @@
 - (void)flutterMethodCallHandler:(FlutterMethodCall *)call FlutterResult:(FlutterResult)result {
     self.command = call.method;
     self.ftResult = result;
+    
+    if ([call.method isEqualToString: METHOD_BLE_STATUS]) {
+        [self bleStatus:result];
+        return;
+    }
+
     if ([call.method isEqualToString: METHOD_SEARCHBLE]) {
         NSArray *names = (NSArray *)call.arguments;
         [self startScan: names needFilter:YES result:result];
-        result(@1);
         return;
     }
-    
+        
     if ([call.method isEqualToString: METHOD_SEARCHBLE_ALL]) {
         [self startScan: nil needFilter:NO result:result];
-        result(@1);
         return;
     }
     
@@ -76,12 +80,18 @@
 }
 
 
+/// 测试蓝牙状态信息
+/// @param result flutter回调信息
+- (void)bleStatus:(FlutterResult)result{
+    [_bleSearchUtil bleStatus:result];
+}
+
+
 /// 蓝牙搜索: 根据平台初始化对应的蓝牙sdk -> 开始搜索
 /// @param bleNames 需要搜索的蓝牙名字
 /// @param needFilter 是否需要按名字过滤蓝牙
 - (void)startScan:(NSArray *)bleNames needFilter:(BOOL) needFilter result:(FlutterResult)result{
-    _bleSearchUtil.ftResult = result;
-    [_bleSearchUtil startScan: bleNames needFilter:needFilter];
+    [_bleSearchUtil startScan: bleNames needFilter:needFilter result:result];
 }
 
 
