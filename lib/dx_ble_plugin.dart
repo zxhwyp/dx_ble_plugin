@@ -24,14 +24,16 @@ class DxBlePlugin {
 
   /// 2. 搜索蓝牙设备
   /// @param names 搜索全部蓝牙
-  Future<bool> searchBleAll() async {
-    return await _channel.invokeMethod(METHOD_SEARCHBLE_ALL);
+  Future<NativeResult> searchBleAll() async {
+    Map value = await _channel.invokeMethod(METHOD_SEARCHBLE_ALL);
+    return NativeResult.fromJson(value);
   }
 
   /// 2. 搜索蓝牙设备
   /// @param names 按名字搜索
-  Future<bool> searchBleList({List<String> names}) async {
-    return await _channel.invokeMethod(METHOD_SEARCHBLE, names);
+  Future<NativeResult> searchBleList({List<String> names}) async {
+    Map value = await _channel.invokeMethod(METHOD_SEARCHBLE, names);
+    return NativeResult.fromJson(value);
   }
 
 // 2. 开锁
@@ -82,6 +84,8 @@ class NativeResult {
   ///回调code：0成功，非0失败
   int code;
 
+  IBle ble;
+
   NativeResult({this.info, this.code});
 
   factory NativeResult.fromJson(Map value) {
@@ -89,6 +93,10 @@ class NativeResult {
     NativeResult entity = NativeResult();
     entity.info = value['info'] ?? '';
     entity.code = value['code'];
+    Map bleMap = value['ble'];
+    if (bleMap is Map) {
+      entity.ble = DefaultBle.fromJson(bleMap);
+    }
     return entity;
   }
 }
