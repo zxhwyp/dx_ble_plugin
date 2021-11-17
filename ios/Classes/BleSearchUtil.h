@@ -8,14 +8,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "DXBleBean.h"
+#import <Flutter/Flutter.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BleSearchUtil : NSObject
 
-@property(copy, nonatomic) void(^BleError)(NSInteger code,NSString *errorInfo);
-
-@property(copy, nonatomic) void(^BleStatus)(NSInteger status, NSString * _Nullable info);
+@property (nonatomic, strong) FlutterResult ftResult;
 
 @property(copy, nonatomic) void(^BleSearchCall)(NSDictionary * _Nullable ble);
 

@@ -38,7 +38,7 @@
 
 - (void)startScan {
     if(self.mgr == nil || self.mgr.state != 5){
-        self.BleStatus(self.mgr.state, @"请检查蓝牙是否开启");
+        self.ftResult(@{@"code": @1, @"msg": @"请检查蓝牙是否开启"});
         return;
     }
     [self stopScan: @"NO"];
@@ -49,7 +49,7 @@
 
 - (void)stopScan:(NSString *)over {
     if ([over isEqualToString:@"YES"]) {
-        self.BleError(3, @"搜索超时");
+        self.ftResult(@{@"code": @3, @"msg": @"搜索超时"});
     }
     [self.mgr stopScan];
 }
@@ -59,22 +59,22 @@
     switch (central.state) {
         case 0:
             _statusInfo = @"设备未知类型";
-            self.BleStatus(0, _statusInfo);
+            self.ftResult(@{@"code": @2, @"msg": _statusInfo});
             break;
         case 1:
             _statusInfo = @"蓝牙正在初始化";
             break;
         case 2:
             _statusInfo = @"设备不支持蓝牙功能";
-            self.BleStatus(2, _statusInfo);
+            self.ftResult(@{@"code": @4, @"msg": _statusInfo});
             break;
         case 3:
             _statusInfo = @"蓝牙功能未授权";
-            self.BleStatus(3, _statusInfo);
+            self.ftResult(@{@"code": @5, @"msg": _statusInfo});
             break;
         case 4:
             _statusInfo = @"未打开蓝牙";
-            self.BleStatus(4, _statusInfo);
+            self.ftResult(@{@"code": @6, @"msg": _statusInfo});
             break;
         case 5:
             _statusInfo = @"蓝牙已开启";
@@ -94,6 +94,8 @@
             [self.bleDic setValue:peripheral forKey:peripheral.identifier.UUIDString];
             self.BleSearchCall(@{@"name": name, @"uuid": peripheral.identifier.UUIDString,
                                  @"rssi": RSSI });
+            self.ftResult(@{@"code": @0, @"ble":@{@"name": name, @"uuid": peripheral.identifier.UUIDString,
+                                              @"rssi": RSSI }});
             return;
     }
     
@@ -103,6 +105,8 @@
         self.BleSearchCall(@{@"name": name, @"uuid": peripheral.identifier.UUIDString,
                              @"rssi": RSSI
                            });
+        self.ftResult(@{@"code": @0, @"ble":@{@"name": name, @"uuid": peripheral.identifier.UUIDString,
+                                          @"rssi": RSSI }});
     }
 }
 

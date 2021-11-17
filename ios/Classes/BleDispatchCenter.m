@@ -44,13 +44,13 @@
     self.ftResult = result;
     if ([call.method isEqualToString: METHOD_SEARCHBLE]) {
         NSArray *names = (NSArray *)call.arguments;
-        [self startScan: names needFilter:YES];
+        [self startScan: names needFilter:YES result:result];
         result(@1);
         return;
     }
     
     if ([call.method isEqualToString: METHOD_SEARCHBLE_ALL]) {
-        [self startScan: nil needFilter:NO];
+        [self startScan: nil needFilter:NO result:result];
         result(@1);
         return;
     }
@@ -79,7 +79,8 @@
 /// 蓝牙搜索: 根据平台初始化对应的蓝牙sdk -> 开始搜索
 /// @param bleNames 需要搜索的蓝牙名字
 /// @param needFilter 是否需要按名字过滤蓝牙
-- (void)startScan:(NSArray *)bleNames needFilter:(BOOL) needFilter {
+- (void)startScan:(NSArray *)bleNames needFilter:(BOOL) needFilter result:(FlutterResult)result{
+    _bleSearchUtil.ftResult = result;
     [_bleSearchUtil startScan: bleNames needFilter:needFilter];
 }
 
@@ -107,14 +108,6 @@
 - (void)initBleSearchUtil {
     __weak typeof(self) weakself = self;
     _bleSearchUtil = [[BleSearchUtil alloc] init];
-    _bleSearchUtil.BleError = ^(NSInteger code, NSString * _Nonnull errorInfo) {
-        [weakself.bleChannel invokeMethod:CALL_ERROR arguments:@{@"@code": @(code), @"info": errorInfo}];
-    };
-    
-    _bleSearchUtil.BleStatus = ^(NSInteger status, NSString * info) {
-        [weakself.bleChannel invokeMethod:CALL_STATUS arguments:@{@"info": info, @"status": @(status)}];
-    };
-    
     _bleSearchUtil.BleSearchCall = ^(NSDictionary * bles) {
         [weakself.bleChannel invokeMethod:CALL_SEARCH arguments:bles];
     };
