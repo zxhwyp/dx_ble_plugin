@@ -38,7 +38,7 @@
 
 - (void)startScan {
     if(self.mgr == nil || self.mgr.state != 5){
-        self.ftResult(@{@"code": @1, @"msg": @"请检查蓝牙是否开启"});
+        self.ftResult(@{@"code": @1, @"info": @"请检查蓝牙是否开启"});
         return;
     }
     [self stopScan: @"NO"];
@@ -49,38 +49,36 @@
 
 - (void)stopScan:(NSString *)over {
     if ([over isEqualToString:@"YES"]) {
-        self.ftResult(@{@"code": @3, @"msg": @"搜索超时"});
+        self.ftResult(@{@"code": @3, @"info": @"搜索超时"});
     }
     [self.mgr stopScan];
 }
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
+    int code = 0;
     switch (central.state) {
         case 0:
             _statusInfo = @"设备未知类型";
-            self.ftResult(@{@"code": @2, @"msg": _statusInfo});
-            break;
-        case 1:
-            _statusInfo = @"蓝牙正在初始化";
+            code = 0;
             break;
         case 2:
             _statusInfo = @"设备不支持蓝牙功能";
-            self.ftResult(@{@"code": @4, @"msg": _statusInfo});
+            code = 2;
             break;
         case 3:
+            code = 3;
             _statusInfo = @"蓝牙功能未授权";
-            self.ftResult(@{@"code": @5, @"msg": _statusInfo});
             break;
         case 4:
+            code = 4;
             _statusInfo = @"未打开蓝牙";
-            self.ftResult(@{@"code": @6, @"msg": _statusInfo});
-            break;
-        case 5:
-            _statusInfo = @"蓝牙已开启";
             break;
         default:
             break;
+    }
+    if (self.ftResult != nil) {
+        self.ftResult(@{@"code": @(code), @"info": _statusInfo});
     }
 }
 
