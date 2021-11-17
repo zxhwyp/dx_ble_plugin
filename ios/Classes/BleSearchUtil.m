@@ -54,6 +54,7 @@
     }
     [self stopScan: @"NO"];
     [self.bleDic removeAllObjects];
+    self.mgr.delegate = self;
     [self.mgr scanForPeripheralsWithServices:nil options:nil];
     [self performSelector:@selector(stopScan:) withObject:@"YES" afterDelay:6];
 }
