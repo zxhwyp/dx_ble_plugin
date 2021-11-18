@@ -196,10 +196,12 @@ static NSString * const kSecretKey = @"36363636";
         [self doSetKeyTask];
         return;
     }
+    [[RASimpleKeySDK sharedManager] bleDisConnect:self.searchUtil.mgr];
     self.ftResult(@{@"code":@2, @"info":@"蓝牙钥匙初始化失败"});
 }
 ///  开锁回调
 - (void)openLockCallback:(BOOL)result param:(NSDictionary *)dic {
+    [[RASimpleKeySDK sharedManager] bleDisConnect:self.searchUtil.mgr];
     if (result) {
         self.ftResult(@{@"code":@0, @"info":@"蓝牙开锁成功"});
         return;
@@ -210,14 +212,16 @@ static NSString * const kSecretKey = @"36363636";
 
 ///  设置钥匙task回调
 - (void)setTaskCallback:(BOOL)result param:(NSDictionary *)dic {
+    [[RASimpleKeySDK sharedManager] bleDisConnect:self.searchUtil.mgr];
     if (result) {
         self.ftResult(@{@"code":@3, @"info":@"设置蓝牙钥匙信息成功"});
         return;
     }
     self.ftResult(@{@"code":@3, @"info":@"设置蓝牙钥匙信息失败"});
 }
-///初始化锁具回调
+///初始化锁具编码回调
 - (void)initLockCallback:(BOOL)result param:(NSDictionary *)dic {
+    [[RASimpleKeySDK sharedManager] bleDisConnect:self.searchUtil.mgr];
     if (result) {
         self.ftResult(@{@"code":@0, @"info":@"初始化锁具成功"});
         return;
